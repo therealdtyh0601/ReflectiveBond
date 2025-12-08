@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Reflection Card – Lumi Studio</title>
+
+    <!-- OpenGraph for recipients -->
+    <meta name="description" content="Someone sent you a Lumi Studio reflection card.">
+    <meta property="og:title" content="You’ve Received a Reflection Card">
+    <meta property="og:description" content="A gentle message shared with you through Lumi Studio.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/therealdtyh0601/ReflectiveBond/main/og-image.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<div class="container">
+
+    <div id="recipientHeader" style="text-align:center; margin-bottom:20px;">
+        <h1 class="landingTitle">A Reflection for You</h1>
+        <p class="landingSubtitle">This message was written and shared with warmth and sincerity.</p>
+        <div class="landingGeo"></div>
+    </div>
+
+    <div id="recipientCard">
+        <!-- card content injected here -->
+        <h2 id="r_title"></h2>
+        <p id="r_intro"></p>
+        <p id="r_challenges"></p>
+        <p id="r_appreciations"></p>
+        <p id="r_cta"></p>
+    </div>
+
+    <button onclick="downloadRecipientCard()" class="startBtn" style="margin-top:20px;">
+        Download as Image
+    </button>
+
+</div>
+
+<footer id="lumiFooter">
+    <div class="footerGeo"></div>
+    <p class="footerText">Powered by Lumi Studio</p>
+    <p class="footerSig">Shared Reflection Mode</p>
+</footer>
+
+<!-- html2canvas for downloads -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="recipient.js"></script>
+
+</body>
+</html>
