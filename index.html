@@ -15,16 +15,23 @@
     <meta property="og:description" content="A gentle Lumi Studio micro-reflection to soften the heart and mend bonds." />
     <meta property="og:url" content="https://therealdtyh0601.github.io/ReflectiveBond/" />
 
-    <!-- AdSense (as you provided) -->
+    <!-- AdSense -->
     <script async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9188806824600550"
         crossorigin="anonymous"></script>
 
-    <!-- Styles -->
     <link rel="stylesheet" href="styles.css" />
-
 </head>
 <body>
+
+<!-- ============================================================
+     HOME BUTTON (NEW)
+============================================================ -->
+<button id="homeBtn" class="home-icon-btn" onclick="returnHome()" style="display:none;">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" class="home-icon">
+</button>
+
+
 <div class="container">
 
     <!-- ============================================================
@@ -84,17 +91,17 @@
             <button class="backBtn" onclick="goBackToUserInfo()">Back</button>
         </div>
 
-        <!-- STEP 3: CHALLENGES / VENT -->
+        <!-- STEP 3: CHALLENGES -->
         <div id="stepChallenges" style="display:none;">
             <label id="labelChallenges" for="challenges"></label>
             <textarea id="challenges" rows="6"
-                      placeholder="Line by line is best.&#10;Example: You often cancel last minute..."></textarea>
+                placeholder="Line by line is best.&#10;Example: You often cancel last minute..."></textarea>
 
             <button id="btnNext2" class="startBtn" onclick="startBreathwork()"></button>
             <button class="backBtn" onclick="goBackToPerson()">Back</button>
         </div>
 
-        <!-- STEP 4: BREATHWORK RESET -->
+        <!-- STEP 4: BREATHWORK -->
         <div id="breathStep" style="display:none; text-align:center;">
             <h2 id="breathTitle"></h2>
             <p id="breathText" class="breathText"></p>
@@ -116,32 +123,25 @@
         <div id="stepAppreciations" style="display:none;">
             <label id="labelAppreciations" for="appreciations"></label>
             <textarea id="appreciations" rows="6"
-                      placeholder="Line by line is best.&#10;Example: You always show up when I truly need help..."></textarea>
+                placeholder="Line by line is best.&#10;Example: You always show up when I truly need help..."></textarea>
 
             <button id="btnNext3" class="startBtn" onclick="generateReflection()"></button>
             <button class="backBtn" onclick="goBackToBreath()">Back</button>
         </div>
 
-        <!-- STEP 6: FINAL CARD OUTPUT -->
+        <!-- STEP 6: FINAL OUTPUT -->
         <div id="output" style="display:none; margin-top:24px;">
-
-            <!-- Title (Person) -->
             <h2 id="outputTitle"></h2>
-
-            <!-- Opening -->
             <p id="outputOpening"></p>
 
-            <!-- Challenges section -->
             <h3 id="outputChallengesTitle"></h3>
             <p id="outputChallengesIntro"></p>
             <div id="outputChallenges"></div>
 
-            <!-- Appreciations section -->
             <h3 id="outputAppreciationsTitle"></h3>
             <p id="outputAppreciationsIntro"></p>
             <div id="outputAppreciations"></div>
 
-            <!-- Bridge -->
             <p id="outputBridge" style="margin-top:20px;"></p>
 
             <!-- Healing Mantra -->
@@ -155,19 +155,22 @@
             <!-- Signature -->
             <p id="outputSignature" style="opacity:0.8; margin-top:16px;"></p>
 
-            <!-- Offering / Order section -->
+            <!-- Offering Section -->
             <h3 id="outputOrderTitle" style="margin-top:24px;"></h3>
-            <label style="display:block; margin-bottom:6px;">
+
+            <label style="display:block;">
                 <input type="checkbox" id="offerLampFlower" />
                 <span id="offerLampFlowerText"></span>
             </label>
-            <label style="display:block; margin-bottom:10px;">
+
+            <label style="display:block; margin-top:8px;">
                 <input type="checkbox" id="offerFlowerCard" />
                 <span id="offerFlowerCardText"></span>
             </label>
+
             <button id="orderBtn" class="offerBtn" onclick="openWhatsAppOrder()"></button>
 
-            <!-- IG Story Theme Selector -->
+            <!-- Theme selector -->
             <div id="storyThemeWrapper" style="margin-top:20px;">
                 <label style="font-weight:600; color:#0A1D40;">IG Story Theme:</label>
                 <select id="storyTheme" class="themeDropdown">
@@ -179,34 +182,73 @@
                 </select>
             </div>
 
-            <!-- Theme previews -->
             <div class="themePreviewRow">
                 <div class="themePreview themePreview-lumi activeThemePreview" data-theme="lumi"></div>
-                <div class="themePreview themePreview-dawn" data-theme="dawn"></title></div>
+                <div class="themePreview themePreview-dawn" data-theme="dawn"></div>
                 <div class="themePreview themePreview-sand" data-theme="sand"></div>
                 <div class="themePreview themePreview-cosmic" data-theme="cosmic"></div>
                 <div class="themePreview themePreview-clean" data-theme="clean"></div>
             </div>
 
-            <!-- Action buttons -->
             <button id="downloadBtn" onclick="downloadCard()">Download Card</button>
             <button id="storyBtn" onclick="downloadStoryCard()">Download IG Story</button>
             <button id="shareBtn" onclick="shareCard()">Share Card Link</button>
-            <button class="backBtn" onclick="goBackToAppreciations()">Back</button>
 
+            <button class="backBtn" onclick="goBackToAppreciations()">Back</button>
         </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- ============================================================
+         STATIC PAGES (NEW)
+    ============================================================= -->
+
+    <div id="termsPage" class="staticPage" style="display:none;">
+        <h1>Terms of Use</h1>
+        <p>This tool supports emotional reflection. It is not a therapeutic or medical service.</p>
+        <p>You are responsible for your content and choices.</p>
+        <p>Your entries stay on your device unless you choose to share them.</p>
+    </div>
+
+    <div id="privacyPage" class="staticPage" style="display:none;">
+        <h1>Privacy Policy</h1>
+        <p>No login. No server storage. All reflections remain in your browser.</p>
+        <p>We do not transmit or store your data.</p>
+        <p>You may clear your data any time.</p>
+    </div>
+
+    <div id="disclaimerPage" class="staticPage" style="display:none;">
+        <h1>Disclaimer</h1>
+        <p>This reflection is not a substitute for professional psychological support.</p>
+        <p>If you feel overwhelmed, please seek help from someone you trust.</p>
+    </div>
+
+    <div id="lumiPage" class="staticPage" style="display:none;">
+        <h1>Lumi Studio</h1>
+        <p>Lumi Studio creates tools that support clarity, emotional awareness, and modern well-being.</p>
+        <p>Reflective Bond is part of our micro-reflection series designed for contemporary hearts.</p>
+    </div>
+
+    <!-- ============================================================
+         FOOTER (UPDATED)
+    ============================================================= -->
     <footer id="lumiFooter">
         <div class="footerGeo"></div>
         <p class="footerText">Powered by Lumi Studio</p>
+
+        <p class="footerLinks">
+            <span onclick="returnHome()">Home</span> |
+            <span onclick="openPage('termsPage')">Terms of Use</span> |
+            <span onclick="openPage('privacyPage')">Privacy Policy</span> |
+            <span onclick="openPage('disclaimerPage')">Disclaimer</span> |
+            <span onclick="openPage('lumiPage')">Lumi Studio</span>
+        </p>
+
         <p class="footerSig">A micro-reflection experience for modern hearts</p>
     </footer>
 
 </div>
 
-<!-- html2canvas -->
+<!-- html2canvas + main script -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="script.js"></script>
 
