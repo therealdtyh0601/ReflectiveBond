@@ -1,3 +1,4 @@
+
 Think of a Person — Lumi Studio Micro-Reflection WebApp
 A lightweight, multilingual, Lumi-Studio–styled reflection tool designed to help users soften and mend relationships through gentle narrative introspection.
 This app guides users through four steps:
