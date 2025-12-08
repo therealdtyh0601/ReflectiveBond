@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8" />
     <title>Reflective Bond · Lumi Studio</title>
+
+    <!-- Google AdSense -->
+    <script async 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9188806824600550"
+        crossorigin="anonymous">
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <!-- Home Button -->
     <button id="homeBtn" class="home-icon-btn" onclick="returnHome()">
-        <!-- Simple home icon (can be replaced with SVG or image) -->
         <span class="home-icon">⌂</span>
     </button>
 
     <div class="container">
-        <!-- Error Bar (Soft Messages) -->
         <div id="errorBar" class="errorBar"></div>
 
-        <!-- ===========================
-             LANDING PAGE
-        ============================ -->
+        <!-- LANDING PAGE -->
         <section id="landingPage">
             <h1 class="landingTitle">Reflective Bond</h1>
             <p class="landingSubtitle">
@@ -30,201 +33,130 @@
             <div class="landingGeo"></div>
 
             <div id="languageSelect">
-                <button
-                    class="langBtn activeLang"
-                    data-lang="en"
-                    onclick="selectLanguage('en')"
-                >
-                    EN
-                </button>
-                <button
-                    class="langBtn"
-                    data-lang="zh"
-                    onclick="selectLanguage('zh')"
-                >
-                    中文
-                </button>
-                <button
-                    class="langBtn"
-                    data-lang="ms"
-                    onclick="selectLanguage('ms')"
-                >
-                    BM
-                </button>
+                <button class="langBtn activeLang" data-lang="en" onclick="selectLanguage('en')">EN</button>
+                <button class="langBtn" data-lang="zh" onclick="selectLanguage('zh')">中文</button>
+                <button class="langBtn" data-lang="ms" onclick="selectLanguage('ms')">BM</button>
             </div>
 
-            <button class="startBtn" onclick="startApp()">
-                Begin Reflection
-            </button>
+            <button class="startBtn" onclick="startApp()">Begin Reflection</button>
 
             <p class="landingNote">
-                Nothing you write is stored on a server. Everything stays in your browser
-                unless you choose to download or share it.
+                Nothing you write is stored on a server. Everything stays in your device unless you choose to save it.
             </p>
         </section>
 
-        <!-- ===========================
-             FLOW WRAPPER
-        ============================ -->
+        <!-- FLOW -->
         <section id="flow" style="display:none;">
-
-            <!-- STEP 1: SENDER INFO -->
+            <!-- STEP 1 - Sender Info -->
             <div id="userInfoStep" class="flow-step">
-                <h2 id="userInfoTitle">Before we begin…</h2>
-                <p id="userInfoInstruction">
-                    Your name and today’s date will appear at the end of your reflection.
-                </p>
+                <h2>Before we begin…</h2>
+                <p>Your name and today’s date will appear at the end of your reflection.</p>
 
-                <label id="labelSenderName" for="senderName">Your Name</label>
+                <label for="senderName">Your Name</label>
                 <input id="senderName" type="text" placeholder="Your name" />
 
-                <label id="labelDate" for="reflectionDate">Date</label>
+                <label for="reflectionDate">Date</label>
                 <input id="reflectionDate" type="date" />
 
-                <button id="btnUserNext" class="startBtn" onclick="goToPersonStep()">
-                    Next
-                </button>
+                <button class="startBtn" onclick="goToPersonStep()">Next</button>
             </div>
 
-            <!-- STEP 2: RECIPIENT NAME -->
+            <!-- STEP 2 - Recipient -->
             <div id="stepPerson" class="flow-step" style="display:none;">
-                <h2 id="stepPersonTitle">Who are you writing to?</h2>
-                <p id="stepPersonInstruction">
-                    Enter the name of the person you’re thinking of. This will appear as
-                    “Dear [name]” on your reflection card.
-                </p>
+                <h2>Who are you writing to?</h2>
+                <p>Enter the name of the person you’re thinking of.</p>
 
-                <label id="labelPerson" for="person">Recipient Name</label>
-                <input id="person" type="text" placeholder="Their name or how you address them" />
+                <label for="person">Recipient Name</label>
+                <input id="person" type="text" placeholder="Their name" />
 
                 <button class="backBtn" onclick="goBackToUserInfo()">Back</button>
                 <button class="startBtn" onclick="goToChallengesStep()">Next</button>
             </div>
 
-            <!-- STEP 3: VENT / DIFFICULTIES -->
+            <!-- STEP 3 - Vent -->
             <div id="stepChallenges" class="flow-step" style="display:none;">
-                <h2 id="stepChallengesTitle">What has been difficult for you?</h2>
-                <p id="labelChallenges">
-                    List the things that have been painful, frustrating, or difficult for you
-                    in this connection.
-                </p>
+                <h2>What has been difficult for you?</h2>
+                <p>List the things that have been painful or frustrating.</p>
 
-                <p class="sectionNote">
-                    You may write just one item. You can add up to five (space is limited on the card).
-                </p>
+                <p class="sectionNote">You may write just one item. Up to five is ideal.</p>
 
-                <input type="text" class="ventInput" id="vent1" placeholder="Item 1" />
-                <input type="text" class="ventInput" id="vent2" placeholder="Item 2" />
-                <input type="text" class="ventInput" id="vent3" placeholder="Item 3" />
-                <input type="text" class="ventInput" id="vent4" placeholder="Item 4" />
-                <input type="text" class="ventInput" id="vent5" placeholder="Item 5" />
+                <input type="text" id="vent1" class="ventInput" placeholder="Item 1" />
+                <input type="text" id="vent2" class="ventInput" placeholder="Item 2" />
+                <input type="text" id="vent3" class="ventInput" placeholder="Item 3" />
+                <input type="text" id="vent4" class="ventInput" placeholder="Item 4" />
+                <input type="text" id="vent5" class="ventInput" placeholder="Item 5" />
 
                 <button class="backBtn" onclick="goBackToPerson()">Back</button>
                 <button class="startBtn" onclick="startBreathwork()">Next</button>
             </div>
 
-            <!-- STEP 4: BREATHWORK -->
+            <!-- STEP 4 - Breathwork -->
             <div id="breathStep" class="flow-step" style="display:none;">
-                <h2 id="breathTitle">Take a breath with me</h2>
-                <p id="breathText">
-                    We’ll take a few slow breaths before continuing. Follow the orb —
-                    let it grow as you inhale, and soften as you exhale.
-                </p>
+                <h2>Take a breath with me</h2>
+                <p>Follow the orb for a few slow inhales and exhales.</p>
 
                 <div class="breathOrbWrapper">
                     <div class="breathOrb"></div>
                 </div>
-                <p class="breathCountdownText">
-                    Time remaining: <span id="breathCountdown">30</span>s
-                </p>
+
+                <p class="breathCountdownText">Time remaining: <span id="breathCountdown">30</span>s</p>
 
                 <button class="backBtn" onclick="goBackToChallenges()">Back</button>
-                <button
-                    id="btnBreathNext"
-                    class="startBtn"
-                    onclick="goToAppreciationsStep()"
-                    disabled
-                >
-                    Continue
-                </button>
+                <button id="btnBreathNext" class="startBtn" disabled onclick="goToAppreciationsStep()">Continue</button>
             </div>
 
-            <!-- STEP 5: APPRECIATIONS -->
+            <!-- STEP 5 - Appreciation -->
             <div id="stepAppreciations" class="flow-step" style="display:none;">
-                <h2 id="stepAppreciationsTitle">What do you still appreciate?</h2>
-                <p id="labelAppreciations">
-                    Now that you’ve let some of the tension out, name the qualities, actions,
-                    or moments you genuinely appreciate about this person.
-                </p>
+                <h2>What do you still appreciate?</h2>
 
-                <p class="sectionNote">
-                    Again, you may fill in just one item. You can add up to five (space is limited on the card).
-                </p>
+                <p class="sectionNote">You may write just one item. Up to five is ideal.</p>
 
-                <input type="text" class="appInput" id="app1" placeholder="Item 1" />
-                <input type="text" class="appInput" id="app2" placeholder="Item 2" />
-                <input type="text" class="appInput" id="app3" placeholder="Item 3" />
-                <input type="text" class="appInput" id="app4" placeholder="Item 4" />
-                <input type="text" class="appInput" id="app5" placeholder="Item 5" />
+                <input type="text" id="app1" class="appInput" placeholder="Item 1" />
+                <input type="text" id="app2" class="appInput" placeholder="Item 2" />
+                <input type="text" id="app3" class="appInput" placeholder="Item 3" />
+                <input type="text" id="app4" class="appInput" placeholder="Item 4" />
+                <input type="text" id="app5" class="appInput" placeholder="Item 5" />
 
                 <button class="backBtn" onclick="goBackToBreath()">Back</button>
                 <button class="startBtn" onclick="generateReflection()">Generate Reflection</button>
             </div>
 
-            <!-- STEP 6: OUTPUT CARD -->
+            <!-- STEP 6 - Output Card -->
             <div id="output" style="display:none;">
-                <h2 id="outputTitle" style="margin-bottom:16px;">Your Reflection</h2>
+                <h2>Your Reflection</h2>
 
                 <div id="outputCard">
-                    <!-- Letter-style content -->
-                    <p id="outputRecipientLine">
-                        Dear <span id="outputRecipientName">[Name]</span>,
-                    </p>
+                    <p>Dear <span id="outputRecipientName"></span>,</p>
 
-                    <p id="outputIntentionBlock">
+                    <p>
                         Before anything else, I want to express this clearly:
-                        I would like to apologize for any actions, words, or thoughts that may have caused hurt —
-                        whether intentionally or unintentionally.
+                        I would like to apologize for any actions, words, or thoughts that may have caused hurt — whether intentionally or unintentionally.
                     </p>
 
-                    <p id="outputIntentionBlock2">
-                        My intention in sharing this reflection is simple:
-                        to reconcile where we can, to mend our bond, and to honour the connection we have.
+                    <p>
+                        My intention in sharing this reflection is simple: to reconcile where we can, to mend our bond, and to honour the connection we have.
                         From a place of goodwill and loving-kindness, I sincerely wish you well and happy.
                     </p>
 
-                    <p id="outputOpening">
-                        Today, I took a moment to pause and reflect on what has been sitting in my heart.
-                    </p>
+                    <p>Today, I took a moment to pause and reflect on what has been sitting in my heart.</p>
 
-                    <p id="outputChallengesIntro">
-                        When I think about you, here are the things that have been difficult for me lately:
-                    </p>
+                    <p>Here are the things that have been difficult for me:</p>
                     <div id="outputChallenges"></div>
 
-                    <p id="outputAppreciationsIntro">
-                        After taking time to breathe and settle my thoughts, I also reconnected with the
-                        parts of you that I truly appreciate:
-                    </p>
+                    <p>And here are the things I genuinely appreciate about you:</p>
                     <div id="outputAppreciations"></div>
 
-                    <p id="outputBridge">
-                        These qualities remind me that our relationship is shaped not only by tension,
-                        but also by sincerity, kindness, and the meaningful moments we share.
-                    </p>
-
                     <div class="healingBlock">
-                        <p id="h1" class="healingLine">May I see clearly.</p>
-                        <p id="h2" class="healingLine">May I soften where I can.</p>
-                        <p id="h3" class="healingLine">May I honour my boundaries.</p>
-                        <p id="h4" class="healingLine">May I act with compassion and truth.</p>
+                        <p>May I see clearly.</p>
+                        <p>May I soften where I can.</p>
+                        <p>May I honour my boundaries.</p>
+                        <p>May I act with compassion and truth.</p>
                     </div>
 
                     <p class="signatureLabel">With reflection,</p>
                     <p id="outputSignature"></p>
 
-                    <!-- Mandatory Deep Healing Closing Lines -->
-                    <div id="deepHealingFinal" class="deepHealingFinal">
+                    <div class="deepHealingFinal">
                         <p>I’m sorry.</p>
                         <p>Please forgive me.</p>
                         <p>Thank you.</p>
@@ -232,9 +164,9 @@
                     </div>
                 </div>
 
-                <!-- Theme & Actions -->
+                <!-- Theme Selector -->
                 <div class="themeDropdown">
-                    <p>Choose a story/card theme:</p>
+                    <p>Choose a theme:</p>
                     <div class="themePreviewRow">
                         <div class="themePreview themePreview-lumi" onclick="setTheme('lumi')"></div>
                         <div class="themePreview themePreview-dawn" onclick="setTheme('dawn')"></div>
@@ -244,120 +176,49 @@
                     </div>
                 </div>
 
-                <div class="outputActions" style="margin-top:24px;">
-                    <button class="startBtn" onclick="downloadCard()">Download Card (PNG)</button>
-                    <button class="startBtn" style="margin-top:10px;" onclick="downloadStoryCard()">
-                        Download Story Version (1080×1920)
-                    </button>
-                    <button class="backBtn" style="margin-top:10px;" onclick="shareCard()">
-                        Copy Shareable Link
-                    </button>
-                </div>
+                <button class="startBtn" onclick="downloadCard()">Download Card (PNG)</button>
+                <button class="startBtn" onclick="downloadStoryCard()">Download Story Version</button>
 
-                <!-- Optional offering section -->
-                <div class="healingBlock" style="margin-top:28px;">
-                    <h3 id="outputOrderTitle">Would you like to send a small offering?</h3>
-                    <label>
-                        <input type="checkbox" id="offerLampFlower" />
-                        <span id="offerLampFlowerText">A Lamp + Flower Offering</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="offerFlowerCard" />
-                        <span id="offerFlowerCardText">A Flower Offering + Dedication Card</span>
-                    </label>
-                    <button id="orderBtn" class="startBtn" style="margin-top:12px;" onclick="openWhatsAppOrder()">
-                        Order via WhatsApp
-                    </button>
-                </div>
-
-                <div style="margin-top:24px; text-align:center;">
-                    <button class="backBtn" onclick="goBackToAppreciations()">
-                        Edit my reflection
-                    </button>
-                    <button class="startBtn" style="margin-top:8px;" onclick="returnHome()">
-                        Start a new reflection
-                    </button>
-                </div>
+                <button class="backBtn" onclick="goBackToAppreciations()">Edit Reflection</button>
+                <button class="startBtn" onclick="returnHome()">Start Over</button>
             </div>
         </section>
 
-        <!-- ===========================
-             STATIC PAGES
-        ============================ -->
+        <!-- STATIC PAGES -->
         <section id="termsPage" class="staticPage">
             <h1>Terms of Use</h1>
-            <p>
-                Reflective Bond is a gentle reflection tool created by Lumi Studio. It is designed
-                to support personal reflection and relationship understanding. It is not a substitute
-                for therapy, counselling, or professional mental health support.
-            </p>
-            <p>
-                By using this tool, you agree that you are responsible for your own emotional and
-                relational decisions. Please seek qualified help if you feel overwhelmed or unsafe.
-            </p>
+            <p>Reflective Bond is a contemplative tool...</p>
         </section>
 
         <section id="privacyPage" class="staticPage">
             <h1>Privacy Policy</h1>
-            <p>
-                This tool is built to be as private as possible. Your entries are processed directly
-                in your browser and are not stored on a server by default.
-            </p>
-            <p>
-                If you choose to download or share your reflection, the content you share or send
-                is then handled by the platforms you use (e.g. messaging apps, email, cloud storage).
-            </p>
+            <p>We do not store your data...</p>
         </section>
 
         <section id="disclaimerPage" class="staticPage">
             <h1>Disclaimer</h1>
-            <p>
-                Reflective Bond is not a medical, psychological, or legal service. It does not diagnose,
-                treat, or prevent any condition. It is a contemplative and relational support tool.
-            </p>
-            <p>
-                If you are in distress, in crisis, or in a situation of harm, please reach out to
-                trusted people, local services, or professional support immediately.
-            </p>
+            <p>This is not a medical or psychological service...</p>
         </section>
 
         <section id="lumiPage" class="staticPage">
             <h1>Lumi Studio</h1>
-            <p>
-                Lumi Studio creates contemporary, secular, and universal tools for reflection,
-                emotional clarity, and gentle insight. Reflective Bond is part of a series of
-                micro-experiences designed to help modern hearts soften and reconnect.
-            </p>
-            <p>
-                This tool is crafted to be youth-friendly, globally relevant, and emotionally safe,
-                without imposing any particular belief system.
-            </p>
+            <p>A contemporary, secular, universal design studio...</p>
         </section>
 
-        <!-- ===========================
-             FOOTER
-        ============================ -->
         <footer>
             <div class="footerGeo"></div>
-            <div class="footerText">
-                Reflective Bond · A Lumi Studio micro-reflection
-            </div>
             <div class="footerLinks">
                 <span onclick="returnHome()">Home</span> |
-                <span onclick="openPage('termsPage')">Terms of Use</span> |
-                <span onclick="openPage('privacyPage')">Privacy Policy</span> |
+                <span onclick="openPage('termsPage')">Terms</span> |
+                <span onclick="openPage('privacyPage')">Privacy</span> |
                 <span onclick="openPage('disclaimerPage')">Disclaimer</span> |
                 <span onclick="openPage('lumiPage')">Lumi Studio</span>
             </div>
-            <div class="footerSig">
-                Built with care for those who want to heal, not just react.
-            </div>
         </footer>
+
     </div>
 
-    <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <!-- Main script -->
     <script src="script.js"></script>
 </body>
 </html>
