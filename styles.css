@@ -1,16 +1,293 @@
 /* =======================================================================
-   NEW: HOME BUTTON (TOP LEFT)
-   ======================================================================= */
+   GLOBAL RESETS & BASE STYLING
+======================================================================= */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #F2F4F8;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #0A1D40;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* =======================================================================
+   LANDING PAGE
+======================================================================= */
+
+.landingTitle {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    text-align: center;
+    color: #0A1D40;
+}
+
+.landingSubtitle {
+    font-size: 17px;
+    opacity: 0.85;
+    text-align: center;
+    line-height: 1.55;
+}
+
+.landingGeo {
+    width: 100%;
+    height: 160px;
+    background: radial-gradient(circle at 50% 50%, #AFC6FF33, #0F1F5C11);
+    border-radius: 24px;
+    margin: 26px 0 32px;
+}
+
+#languageSelect {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.langBtn {
+    background: #E7ECF5;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    margin: 0 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.activeLang {
+    background: #0F1F5C;
+    color: white;
+}
+
+.startBtn {
+    width: 100%;
+    background: #0F1F5C;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.startBtn:hover {
+    background: #132770;
+}
+
+.landingNote {
+    margin-top: 16px;
+    text-align: center;
+    opacity: 0.7;
+    font-size: 13px;
+}
+
+/* =======================================================================
+   FORM ELEMENTS & FLOW STYLING
+======================================================================= */
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #CBD4E1;
+    font-size: 15px;
+}
+
+textarea {
+    resize: none;
+}
+
+.backBtn {
+    margin-top: 12px;
+    display: inline-block;
+    background: none;
+    color: #0F1F5C;
+    border: 1px solid #0F1F5C;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.backBtn:hover {
+    background: #E7ECF5;
+}
+
+/* =======================================================================
+   BREATHWORK ORB
+======================================================================= */
+
+.breathOrbWrapper {
+    display: flex;
+    justify-content: center;
+    margin: 18px 0;
+}
+
+.breathOrb {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #AFC6FF 0%, #0F1F5C 90%);
+    border-radius: 50%;
+    animation: orbPulse 3s infinite ease-in-out;
+}
+
+@keyframes orbPulse {
+    0% { transform: scale(0.9); opacity: 0.85; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.85; }
+}
+
+.breathCountdown {
+    margin-top: 10px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* =======================================================================
+   OUTPUT SECTION
+======================================================================= */
+
+.healingBlock {
+    margin-top: 22px;
+    background: #F4F7FF;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border-left: 4px solid #0F1F5C;
+}
+
+.healingLine {
+    margin: 4px 0;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.themeDropdown {
+    margin-top: 10px;
+}
+
+.themePreviewRow {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.themePreview {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    opacity: 0.65;
+    cursor: pointer;
+}
+
+.themePreview.activeThemePreview {
+    border: 2px solid #0F1F5C;
+    opacity: 1;
+}
+
+/* Theme colors */
+.themePreview-lumi { background: #0F1F5C; }
+.themePreview-dawn { background: linear-gradient(135deg, #FAD0C4, #FFD1FF); }
+.themePreview-sand { background: #E8DCC2; }
+.themePreview-cosmic { background: #7B55F7; }
+.themePreview-clean { background: #FFFFFF; border: 1px solid #DADEE5; }
+
+/* =======================================================================
+   FOOTER
+======================================================================= */
+
+footer {
+    margin-top: 60px;
+    text-align: center;
+    padding: 30px 0 50px;
+    opacity: 0.9;
+}
+
+.footerGeo {
+    width: 100%;
+    height: 80px;
+    background: radial-gradient(circle at 50% 50%, #AFC6FF33, #0F1F5C11);
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+
+.footerText {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.footerLinks span {
+    cursor: pointer;
+    color: #0A1D40;
+    padding: 0 4px;
+    font-size: 13px;
+}
+
+.footerLinks span:hover {
+    text-decoration: underline;
+}
+
+.footerSig {
+    margin-top: 10px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* =======================================================================
+   STATIC PAGES
+======================================================================= */
+
+.staticPage {
+    display: none;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 20px 140px;
+    background: linear-gradient(180deg, #F7F9FC 0%, #FFFFFF 100%);
+    color: #0A1D40;
+    min-height: 75vh;
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    animation: fadeInStatic 0.35s ease;
+}
+
+.staticPage h1 {
+    font-size: 26px;
+    margin-top: 40px; /* prevents overlap with home button */
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+/* Fade animation */
+@keyframes fadeInStatic {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =======================================================================
+   HOME BUTTON (TOP LEFT)
+======================================================================= */
+
 .home-icon-btn {
     position: fixed;
     top: 16px;
     left: 16px;
-    width: 44px;
-    height: 44px;
-    background: rgba(15, 31, 92, 0.88); /* Lumi Deep Blue */
+    width: 48px;
+    height: 48px;
+    background: rgba(15, 31, 92, 0.88);
     border: none;
-    border-radius: 12px;
-    display: none; /* shown dynamically by script */
+    border-radius: 14px;
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -30,75 +307,28 @@
     filter: invert(100%) brightness(90%);
 }
 
-
 /* =======================================================================
-   NEW: FOOTER NAVIGATION LINKS
-   ======================================================================= */
-.footerLinks {
-    margin-top: 6px;
-    font-size: 13px;
-    opacity: 0.9;
-}
+   MOBILE OPTIMIZATION
+======================================================================= */
 
-.footerLinks span {
-    cursor: pointer;
-    color: #0A1D40;
-    transition: opacity 0.2s ease;
-}
-
-.footerLinks span:hover {
-    text-decoration: underline;
-    opacity: 1;
-}
-
-
-/* =======================================================================
-   NEW: STATIC PAGES (Terms, Privacy, Disclaimer, Lumi Studio)
-   ======================================================================= */
-.staticPage {
-    display: none;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 24px 20px 100px;
-    background: #F7F9FC;
-    color: #0A1D40;
-    animation: fadeInStatic 0.35s ease;
-    min-height: 75vh;
-    line-height: 1.6;
-    font-size: 15px;
-}
-
-.staticPage h1 {
-    font-size: 24px;
-    margin-bottom: 16px;
-    font-weight: 700;
-    color: #0A1D40;
-}
-
-@keyframes fadeInStatic {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* =======================================================================
-   MOBILE RESPONSIVENESS (Static Pages + Footer Links)
-   ======================================================================= */
 @media (max-width: 480px) {
 
+    .landingTitle { font-size: 28px; }
+    .landingSubtitle { font-size: 15px; }
+
     .staticPage {
-        padding: 20px 16px 120px;
+        padding: 40px 16px 160px;
         font-size: 14px;
     }
 
     .footerLinks {
         font-size: 12px;
-        line-height: 18px;
+        line-height: 20px;
     }
 
     .home-icon-btn {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
     }
 
     .home-icon {
