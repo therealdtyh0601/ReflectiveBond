@@ -1,193 +1,126 @@
 /* ============================================================
-   HEALING LINES (same set as main app)
-============================================================ */
-const healingLinesRecipient = {
-    en: ["I'm Sorry", "Please Forgive Me", "Thank You", "I Love You"],
-    zh: ["对不起", "请原谅我", "谢谢你", "我爱你"],
-    ms: ["Maafkan saya", "Ampunkan saya", "Terima kasih", "Saya sayangkan anda"]
-};
+   REFLECTIVE BOND — RECIPIENT VIEW SCRIPT
+   Handles parsing URL parameters, rendering the reflection,
+   theme switching, downloading, and iPhone fallbacks.
+   ============================================================ */
 
-
-/* ============================================================
-   PARSE ENCODED DATA
-============================================================ */
-const urlParams = new URLSearchParams(window.location.search);
-const encoded = urlParams.get("card");
-let cardData = null;
-
-if (!encoded) {
-    document.getElementById("recipientCard").innerHTML =
-        "<p>The reflection card cannot be loaded. The link may be incomplete or expired.</p>";
-} else {
-    try {
-        cardData = JSON.parse(atob(encoded));
-        renderRecipientCard(cardData);
-        animateRecipientHealingLines(cardData.lang || "en", cardData.healing);
-    } catch (e) {
-        document.getElementById("recipientCard").innerHTML =
-            "<p>The shared card cannot be displayed due to invalid data.</p>";
-    }
+/* --------------------------------------------
+   ERROR BAR (Soft message box)
+--------------------------------------------- */
+function showError(msg) {
+    const bar = document.getElementById("errorBar");
+    bar.innerText = msg;
+    bar.style.display = "block";
+    setTimeout(() => {
+        bar.style.display = "none";
+    }, 3000);
 }
 
-
-/* ============================================================
-   RENDER CARD
-============================================================ */
-function renderRecipientCard(data) {
-    const {
-        title,
-        intro,
-        challenges,
-        appreciations,
-        bridgeSentence,
-        cta,
-        lang,
-        senderName,
-        reflectionDate,
-        person
-    } = data;
-
-    document.getElementById("r_title").innerHTML = title || person || "Reflection";
-
-    document.getElementById("r_intro").innerHTML = intro || "";
-
-    document.getElementById("r_challenges").innerHTML = challenges || "";
-    document.getElementById("r_appreciations").innerHTML = appreciations || "";
-
-    const bridgeEl = document.getElementById("r_bridge");
-    if (bridgeSentence && bridgeEl) {
-        bridgeEl.innerHTML = bridgeSentence;
-    }
-
-    if (cta) {
-        // If you ever want a CTA message, place here
-    }
-
-    let signature = "";
-    if (senderName && reflectionDate) {
-        signature = `With warmth, <strong>${senderName}</strong><br>${reflectionDate}`;
-    } else if (senderName) {
-        signature = `With warmth, <strong>${senderName}</strong>`;
-    } else if (reflectionDate) {
-        signature = reflectionDate;
-    }
-
-    document.getElementById("r_signature").innerHTML = signature;
+/* --------------------------------------------
+   READ URL PARAMETERS
+--------------------------------------------- */
+function getParam(key) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(key);
 }
 
+/* --------------------------------------------
+   DECODE REFLECTION DATA
+--------------------------------------------- */
+function loadReflection() {
+    const person = decodeURIComponent(getParam("p") || "");
+    const ventsRaw = decodeURIComponent(getParam("v") || "");
+    const appsRaw = decodeURIComponent(getParam("a") || "");
+    const sender = decodeURIComponent(getParam("s") || "");
+    const date = decodeURIComponent(getParam("d") || "");
 
-/* ============================================================
-   TYPEWRITER MANTRA (RECIPIENT SIDE)
-============================================================ */
-function animateRecipientHealingLines(lang, customLines) {
-    const lines = (customLines && customLines.length === 4)
-        ? customLines
-        : (healingLinesRecipient[lang] || healingLinesRecipient.en);
+    if (!person || !sender) {
+        showError("The reflection link is incomplete.");
+    }
 
-    const ids = ["r_h1", "r_h2", "r_h3", "r_h4"];
+    // Split bullet lists
+    const vents = ventsRaw ? ventsRaw.split("||").filter(v => v.trim() !== "") : [];
+    const apps = appsRaw ? appsRaw.split("||").filter(a => a.trim() !== "") : [];
 
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = "";
-    });
+    // Populate fields
+    document.getElementById("outputRecipientName").innerText = person;
+    document.getElementById("outputSignature").innerText = `${sender} — ${date}`;
 
-    let lineIndex = 0;
+    document.getElementById("outputChallenges").innerHTML =
+        vents.map(v => `• ${v}`).join("<br>");
 
-    function typeLine() {
-        if (lineIndex >= lines.length) return;
-        const el = document.getElementById(ids[lineIndex]);
-        const text = lines[lineIndex];
-        if (!el) return;
+    document.getElementById("outputAppreciations").innerHTML =
+        apps.map(a => `• ${a}`).join("<br>");
+}
 
-        let charIndex = 0;
-        function typeChar() {
-            if (charIndex <= text.length) {
-                el.textContent = text.slice(0, charIndex);
-                charIndex++;
-                setTimeout(typeChar, 50);
-            } else {
-                lineIndex++;
-                setTimeout(typeLine, 250);
-            }
+/* --------------------------------------------
+   THEME SWITCHING
+--------------------------------------------- */
+function setTheme(theme) {
+    const card = document.getElementById("outputCard");
+    card.className = "";         // Reset existing classes
+    card.classList.add(theme);   // Apply new theme
+}
+
+/* --------------------------------------------
+   DOWNLOAD CARD — iPhone Safe
+--------------------------------------------- */
+function downloadCard() {
+    const node = document.getElementById("outputCard");
+
+    html2canvas(node, { scale: 2 }).then(canvas => {
+        const dataURL = canvas.toDataURL("image/png");
+
+        const isSafari = navigator.userAgent.includes("Safari") &&
+                         !navigator.userAgent.includes("Chrome");
+
+        if (isSafari) {
+            const tab = window.open();
+            tab.document.write(`<img src="${dataURL}" style="width:100%">`);
+            showError("Long-press the image to save on iPhone Safari.");
+            return;
         }
-        typeChar();
-    }
 
-    typeLine();
-}
-
-
-/* ============================================================
-   DOWNLOAD CARD (STATIC)
-============================================================ */
-function downloadRecipientCard() {
-    const card = document.getElementById("recipientCard");
-    if (!card) return;
-
-    card.classList.add("watermarkedCard");
-
-    html2canvas(card).then(canvas => {
         const link = document.createElement("a");
-        link.download = "reflection-card.png";
-        link.href = canvas.toDataURL("image/png");
+        link.download = "ReflectiveBond_RecipientCard.png";
+        link.href = dataURL.replace("image/png", "image/octet-stream");
         link.click();
-        card.classList.remove("watermarkedCard");
     });
 }
 
+/* --------------------------------------------
+   DOWNLOAD — STORY CARD VERSION (1080x1920)
+--------------------------------------------- */
+function downloadStoryCard() {
+    const node = document.getElementById("outputCard");
+    node.classList.add("storyMode");
 
-/* ============================================================
-   DOWNLOAD IG STORY (DEFAULT THEME)
-============================================================ */
-function downloadRecipientStoryCard() {
-    if (!cardData) return;
+    html2canvas(node, { scale: 2 }).then(canvas => {
+        const dataURL = canvas.toDataURL("image/png");
 
-    const themeClass = "theme-lumi"; // default theme
-    const wrapper = document.createElement("div");
-    wrapper.className = `storyWrapper ${themeClass}`;
+        const isSafari = navigator.userAgent.includes("Safari") &&
+                         !navigator.userAgent.includes("Chrome");
 
-    const {
-        lang,
-        person,
-        title,
-        intro,
-        challenges,
-        appreciations,
-        bridgeSentence,
-        senderName,
-        reflectionDate
-    } = cardData;
+        if (isSafari) {
+            const tab = window.open();
+            tab.document.write(`<img src="${dataURL}" style="width:100%">`);
+            showError("Long-press the image to save on iPhone Safari.");
+            node.classList.remove("storyMode");
+            return;
+        }
 
-    const lines = healingLinesRecipient[lang] || healingLinesRecipient.en;
-    const mantraHTML = lines.join("<br>");
-
-    const storyHTML = `
-        <div class="storyCardSafe storyCardSafe-dark">
-            <div class="storyTitle">${title || person || ""}</div>
-            <p class="storyText">${intro || ""}</p>
-            <div class="storyText">${challenges || ""}</div>
-            <div class="storyText">${appreciations || ""}</div>
-            <p class="storyText">${bridgeSentence || ""}</p>
-            <div class="storyMantra">${mantraHTML}</div>
-            <div class="storySignature">
-                ${senderName || reflectionDate
-                    ? `With warmth, <strong>${senderName || ""}</strong><br>${reflectionDate || ""}`
-                    : ""}
-            </div>
-        </div>
-    `;
-    wrapper.innerHTML = storyHTML;
-    document.body.appendChild(wrapper);
-
-    html2canvas(wrapper, {
-        width: 1080,
-        height: 1920,
-        scale: 2
-    }).then(canvas => {
         const link = document.createElement("a");
-        link.download = "reflection-story.png";
-        link.href = canvas.toDataURL("image/png");
+        link.download = "ReflectiveBond_StoryVersion.png";
+        link.href = dataURL.replace("image/png", "image/octet-stream");
         link.click();
-        document.body.removeChild(wrapper);
+
+        node.classList.remove("storyMode");
     });
 }
+
+/* --------------------------------------------
+   ON LOAD
+--------------------------------------------- */
+window.onload = function () {
+    loadReflection();
+};
