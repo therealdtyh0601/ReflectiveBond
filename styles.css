@@ -3,8 +3,8 @@
 ----------------------------------------------------------- */
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #f6f7fb;
+    font-family: 'Inter', 'Noto Sans', sans-serif;
+    background: #f5f7fb;
     color: #0A1D40;
 }
 
@@ -18,7 +18,7 @@ body {
 /* -----------------------------------------------------------
    TYPOGRAPHY
 ----------------------------------------------------------- */
-h1, h2 {
+h1, h2, h3 {
     color: #0A1D40;
     margin-bottom: 12px;
     font-weight: 700;
@@ -35,7 +35,7 @@ p {
    LANDING PAGE
 ----------------------------------------------------------- */
 .landingTitle {
-    font-size: 2rem;
+    font-size: 2.1rem;
     text-align: center;
     margin-bottom: 8px;
 }
@@ -43,8 +43,8 @@ p {
 .landingSubtitle {
     text-align: center;
     font-size: 1rem;
-    color: #334;
-    max-width: 460px;
+    color: #2f3d55;
+    max-width: 480px;
     margin: 0 auto 20px;
 }
 
@@ -59,7 +59,7 @@ p {
 .landingNote {
     font-size: 0.8rem;
     text-align: center;
-    color: #4a566d;
+    color: #657089;
     margin-top: 18px;
 }
 
@@ -70,19 +70,27 @@ p {
 #languageSelect {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 16px;
 }
 
 .langBtn {
-    padding: 8px 16px;
+    padding: 10px 18px;
     background: #eef1f8;
     border: 1px solid #0F1F5C40;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #0A1D40;
     transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+/* Highlight selected language */
+.activeLang {
+    background: #0F1F5C;
+    color: white;
+    box-shadow: 0 4px 12px rgba(15, 31, 92, 0.3);
 }
 
 .langBtn:hover {
@@ -92,13 +100,13 @@ p {
 
 
 /* -----------------------------------------------------------
-   INPUTS & TEXTAREAS
+   INPUTS & TEXTAREA
 ----------------------------------------------------------- */
 input, textarea {
     width: 100%;
     padding: 12px;
     margin-top: 6px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid #b9bfd1;
     font-size: 1rem;
     background: white;
@@ -107,43 +115,52 @@ input, textarea {
 
 textarea {
     resize: none;
+    min-height: 130px;
 }
 
 
 /* -----------------------------------------------------------
    BUTTONS
 ----------------------------------------------------------- */
-.startBtn, .backBtn, #btnNext1, #btnNext2, #btnNext3, #btnGenerate,
-#downloadBtn, #shareBtn, .offerBtn {
+.startBtn, .backBtn, #btnUserNext, #btnNext1, #btnNext2, #btnNext3, #btnBreathNext,
+#downloadBtn, #shareBtn, #storyBtn, #orderBtn, .offerBtn {
     width: 100%;
     padding: 14px;
-    margin-top: 14px;
+    margin-top: 16px;
     background: #0F1F5C;
     color: white;
     font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
-.startBtn:hover, #btnNext1:hover, #btnNext2:hover, #btnNext3:hover,
-#btnGenerate:hover, #downloadBtn:hover, #shareBtn:hover, .offerBtn:hover {
-    background: #162a72;
+.startBtn:hover,
+#btnUserNext:hover,
+#btnNext1:hover,
+#btnNext2:hover,
+#btnNext3:hover,
+#btnBreathNext:hover,
+#downloadBtn:hover,
+#shareBtn:hover,
+#storyBtn:hover,
+#orderBtn:hover {
+    background: #182b76;
 }
 
 .backBtn {
-    background: #b8bfcc;
+    background: #c3c9d6;
 }
 
 .backBtn:hover {
-    background: #949dac;
+    background: #9fa7b6;
 }
 
 .offerBtn {
     display: block;
     text-align: center;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 
 
@@ -152,20 +169,20 @@ textarea {
 ----------------------------------------------------------- */
 #output, #recipientCard {
     background: white;
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-    margin-top: 28px;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
-#output h2, #recipientCard h2 {
+#output h2,
+#recipientCard h2 {
     margin-top: 0;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 
 /* -----------------------------------------------------------
-   HEALING MANTRA (Typewriter-Ready)
+   HEALING MANTRA BLOCK
 ----------------------------------------------------------- */
 .healingBlock {
     margin-top: 28px;
@@ -174,47 +191,65 @@ textarea {
     border-left: 4px solid #0F1F5C;
     border-radius: 12px;
     text-align: center;
-    animation: fadeIn 0.7s ease;
 }
 
-/* Typewriter spacing fix */
+/* Typewriter stability */
 .healingLine {
     position: relative;
     display: inline-block;
-    min-height: 1.4rem; /* keeps line stable as text types */
+    min-height: 1.4rem;
     font-weight: 600;
     color: #0A1D40;
-    margin: 8px 0 18px;
-    padding-bottom: 10px;
+    margin: 10px 0 22px;
+    padding-bottom: 12px;
 }
 
-/* Geometry Underline (A2B: thin line + center dot) */
+/* A2-B: Geometry Underline + Center Dot */
 .healingLine::after {
     content: "";
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     bottom: 0;
+    left: 50%;
     width: 70%;
     height: 1px;
-    background: rgba(15, 31, 92, 0.35);
+    transform: translateX(-50%);
+    background: rgba(15,31,92,0.35);
 }
 
 .healingLine::before {
     content: "";
     position: absolute;
     left: 50%;
-    bottom: 0;
-    transform: translate(-50%, 40%);
+    bottom: 0px;
+    transform: translate(-50%, 50%);
     width: 6px;
     height: 6px;
+    background: rgba(15,31,92,0.65);
     border-radius: 50%;
-    background: rgba(15, 31, 92, 0.65);
 }
 
 
 /* -----------------------------------------------------------
-   WATERMARK FOR DOWNLOAD (A3A)
+   BREATHING ANIMATION (Q2-D: Lumi Geometric Pulse)
+----------------------------------------------------------- */
+.breathCircle {
+    width: 130px;
+    height: 130px;
+    margin: 26px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0F1F5C 0%, #0A1D40 70%, rgba(10,29,64,0.4));
+    animation: breathPulse 6s infinite ease-in-out;
+}
+
+@keyframes breathPulse {
+    0% { transform: scale(0.85); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(0.85); opacity: 0.8; }
+}
+
+
+/* -----------------------------------------------------------
+   WATERMARK FOR DOWNLOAD (A3-A)
 ----------------------------------------------------------- */
 .watermarkedCard {
     background-color: #ffffff !important;
@@ -228,11 +263,35 @@ textarea {
 
 
 /* -----------------------------------------------------------
+   IG STORY EXPORT WRAPPER (1080 × 1920)
+----------------------------------------------------------- */
+.storyWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 1080px;
+    height: 1920px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    box-sizing: border-box;
+
+    /* Lumi deep-blue gradient geometry */
+    background:
+        radial-gradient(circle at 15% 25%, rgba(15,31,92,0.25) 0%, transparent 50%),
+        radial-gradient(circle at 85% 10%, rgba(15,31,92,0.20) 0%, transparent 55%),
+        linear-gradient(135deg, #0A1D40 0%, #0F1F5C 60%, #111827 100%);
+}
+
+
+/* -----------------------------------------------------------
    FOOTER
 ----------------------------------------------------------- */
 #lumiFooter {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px;
     color: #4a566d;
     font-size: 0.85rem;
 }
@@ -243,13 +302,4 @@ textarea {
     background: linear-gradient(90deg, #0A1D40 10%, #0F1F5C 100%);
     margin: 12px auto;
     border-radius: 3px;
-}
-
-
-/* -----------------------------------------------------------
-   ANIMATIONS
------------------------------------------------------------ */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
 }
