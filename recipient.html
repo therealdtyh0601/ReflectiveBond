@@ -1,47 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Reflective Bond – Card View</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title>Reflective Bond · Recipient View</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- html2canvas for download (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 </head>
+
 <body>
-<div class="container">
 
-    <div id="recipientCard">
-        <h2 id="r_title"></h2>
+    <!-- Home Button -->
+    <button id="homeBtn" class="home-icon-btn" onclick="window.location.href='index.html'">
+        <span class="home-icon">⌂</span>
+    </button>
 
-        <p id="r_intro"></p>
+    <div class="container">
 
-        <div id="r_challenges"></div>
+        <!-- Error Bar -->
+        <div id="errorBar" class="errorBar"></div>
 
-        <div id="r_appreciations"></div>
+        <!-- ===============================
+             RECIPIENT CARD
+        ================================ -->
+        <section id="recipientCardSection">
 
-        <p id="r_bridge" style="margin-top:20px;"></p>
+            <h1 class="recipientTitle">A Reflection Sent to You</h1>
+            <p class="recipientSubtitle">
+                Someone took a quiet moment to reflect, soften, and share what’s been in their heart.
+            </p>
 
-        <div class="healingBlock">
-            <p id="r_h1" class="healingLine"></p>
-            <p id="r_h2" class="healingLine"></p>
-            <p id="r_h3" class="healingLine"></p>
-            <p id="r_h4" class="healingLine"></p>
-        </div>
+            <div id="outputCard" class="recipientCard">
 
-        <p id="r_signature" style="margin-top:16px; opacity:0.8;"></p>
+                <p id="outputRecipientLine">
+                    Dear <span id="outputRecipientName"></span>,
+                </p>
 
-        <button class="startBtn" onclick="downloadRecipientCard()">Download Card</button>
-        <button class="startBtn" style="margin-top:10px;" onclick="downloadRecipientStoryCard()">Download IG Story</button>
+                <p id="outputIntentionBlock">
+                    Before anything else, I want to express this clearly:
+                    I would like to apologize for any actions, words, or thoughts that may have caused hurt —
+                    whether intentionally or unintentionally.
+                </p>
+
+                <p id="outputIntentionBlock2">
+                    My intention in sharing this reflection is simple:
+                    to reconcile where we can, to mend our bond, and to honour the connection we have.
+                    From a place of goodwill and loving-kindness, I sincerely wish you well and happy.
+                </p>
+
+                <p id="outputOpening">
+                    Today, I took a moment to pause and reflect on what has been sitting in my heart.
+                </p>
+
+                <p id="outputChallengesIntro">
+                    When I think about you, here are the things that have been difficult for me lately:
+                </p>
+                <div id="outputChallenges"></div>
+
+                <p id="outputAppreciationsIntro">
+                    After taking time to breathe and settle my thoughts, I also reconnected with the
+                    parts of you that I truly appreciate:
+                </p>
+                <div id="outputAppreciations"></div>
+
+                <p id="outputBridge">
+                    These qualities remind me that our relationship is shaped not only by tension,
+                    but also by sincerity, kindness, and the meaningful moments we share.
+                </p>
+
+                <div class="healingBlock">
+                    <p class="healingLine">May I see clearly.</p>
+                    <p class="healingLine">May I soften where I can.</p>
+                    <p class="healingLine">May I honour my boundaries.</p>
+                    <p class="healingLine">May I act with compassion and truth.</p>
+                </div>
+
+                <p class="signatureLabel">With reflection,</p>
+                <p id="outputSignature"></p>
+
+                <!-- Four-line Ho’oponopono Closing -->
+                <div id="deepHealingFinal" class="deepHealingFinal">
+                    <p>I’m sorry.</p>
+                    <p>Please forgive me.</p>
+                    <p>Thank you.</p>
+                    <p>I love you.</p>
+                </div>
+            </div>
+
+            <!-- THEME SELECTOR -->
+            <div class="themeDropdown">
+                <p>Change Theme:</p>
+
+                <div class="themePreviewRow">
+                    <div class="themePreview themePreview-lumi" onclick="setTheme('lumi')"></div>
+                    <div class="themePreview themePreview-dawn" onclick="setTheme('dawn')"></div>
+                    <div class="themePreview themePreview-sand" onclick="setTheme('sand')"></div>
+                    <div class="themePreview themePreview-cosmic" onclick="setTheme('cosmic')"></div>
+                    <div class="themePreview themePreview-clean" onclick="setTheme('clean')"></div>
+                </div>
+            </div>
+
+            <div class="outputActions" style="margin-top:24px;">
+                <button class="startBtn" onclick="downloadCard()">Download Card (PNG)</button>
+                <button class="startBtn" style="margin-top:10px;" onclick="downloadStoryCard()">Download Story Version</button>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footerGeo"></div>
+            <div class="footerText">Reflective Bond · A Lumi Studio Reflection</div>
+            <div class="footerLinks">
+                <span onclick="window.location.href='index.html'">Home</span> |
+                <span onclick="window.location.href='index.html#termsPage'">Terms of Use</span> |
+                <span onclick="window.location.href='index.html#privacyPage'">Privacy Policy</span> |
+                <span onclick="window.location.href='index.html#disclaimerPage'">Disclaimer</span> |
+                <span onclick="window.location.href='index.html#lumiPage'">Lumi Studio</span>
+            </div>
+        </footer>
+
     </div>
 
-    <footer id="lumiFooter">
-        <div class="footerGeo"></div>
-        <p class="footerText">Reflective Bond – Lumi Studio</p>
-        <p class="footerSig">If this card reached you, someone cared enough to reflect deeply on your connection.</p>
-    </footer>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="recipient.js"></script>
+    <!-- Recipient Script -->
+    <script src="recipient.js"></script>
 </body>
 </html>
