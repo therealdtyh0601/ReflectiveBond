@@ -165,7 +165,7 @@ textarea {
 
 
 /* -----------------------------------------------------------
-   OUTPUT CARD BLOCK
+   OUTPUT & RECIPIENT CARD
 ----------------------------------------------------------- */
 #output, #recipientCard {
     background: white;
@@ -193,7 +193,6 @@ textarea {
     text-align: center;
 }
 
-/* Typewriter stability */
 .healingLine {
     position: relative;
     display: inline-block;
@@ -204,7 +203,7 @@ textarea {
     padding-bottom: 12px;
 }
 
-/* A2-B: Geometry Underline + Center Dot */
+/* Underline + center dot */
 .healingLine::after {
     content: "";
     position: absolute;
@@ -230,15 +229,38 @@ textarea {
 
 
 /* -----------------------------------------------------------
-   BREATHING ANIMATION (Q2-D: Lumi Geometric Pulse)
+   BREATHWORK
 ----------------------------------------------------------- */
-.breathCircle {
-    width: 130px;
-    height: 130px;
-    margin: 26px auto;
+.breathText {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #0A1D40;
+    margin-bottom: 24px;
+}
+
+.breathOrbWrapper {
+    margin: 30px auto;
+}
+
+.breathOrb {
+    width: 140px;
+    height: 140px;
+    margin: auto;
     border-radius: 50%;
-    background: radial-gradient(circle, #0F1F5C 0%, #0A1D40 70%, rgba(10,29,64,0.4));
+    background:
+        radial-gradient(circle at 40% 40%, #0F1F5C 0%, #0A1D40 60%, rgba(10,29,64,0.4));
+    box-shadow:
+        0 0 20px rgba(15,31,92,0.25),
+        inset 0 0 15px rgba(255,255,255,0.12);
     animation: breathPulse 6s infinite ease-in-out;
+}
+
+.breathCountdown {
+    margin-top: 18px;
+    font-size: 1rem;
+    color: #2d3a56;
+    font-weight: 600;
+    opacity: 0.8;
 }
 
 @keyframes breathPulse {
@@ -249,7 +271,7 @@ textarea {
 
 
 /* -----------------------------------------------------------
-   WATERMARK FOR DOWNLOAD (A3-A)
+   WATERMARK FOR DOWNLOAD
 ----------------------------------------------------------- */
 .watermarkedCard {
     background-color: #ffffff !important;
@@ -263,7 +285,7 @@ textarea {
 
 
 /* -----------------------------------------------------------
-   IG STORY EXPORT WRAPPER (1080 × 1920)
+   IG STORY WRAPPER (1080 × 1920)
 ----------------------------------------------------------- */
 .storyWrapper {
     position: fixed;
@@ -277,12 +299,172 @@ textarea {
     justify-content: center;
     padding: 80px;
     box-sizing: border-box;
+}
 
-    /* Lumi deep-blue gradient geometry */
+/* Story card container */
+.storyCardSafe {
+    width: 780px;
+    max-height: 1600px;
+    overflow: hidden;
+    padding: 40px 50px;
+    border-radius: 22px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+/* Dark / light variants */
+.storyCardSafe-dark {
+    background: rgba(8,11,34,0.94);
+    color: #f5f7ff;
+}
+
+.storyCardSafe-light {
+    background: rgba(255,255,255,0.97);
+    color: #0A1D40;
+}
+
+.storyCardSafe-dark .storyTitle,
+.storyCardSafe-dark .storySectionTitle,
+.storyCardSafe-dark .storyText,
+.storyCardSafe-dark .storyList li,
+.storyCardSafe-dark .storySignature,
+.storyCardSafe-dark .storyMantra {
+    color: #f5f7ff;
+}
+
+/* Story typography */
+.storyTitle {
+    font-size: 2.1rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.storySectionTitle {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-top: 24px;
+}
+
+.storyText {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    margin-bottom: 14px;
+}
+
+.storyList {
+    margin: 10px 0 16px 0;
+    padding-left: 22px;
+}
+
+.storyList li {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}
+
+.storyMantra {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.storySignature {
+    font-size: 1rem;
+    opacity: 0.75;
+    margin-top: 24px;
+    text-align: right;
+}
+
+
+/* -----------------------------------------------------------
+   IG STORY THEMES
+----------------------------------------------------------- */
+.themeDropdown {
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #b8bfd5;
+    font-size: 1rem;
+    color: #0A1D40;
+}
+
+/* Theme backgrounds on wrapper */
+.theme-lumi {
     background:
         radial-gradient(circle at 15% 25%, rgba(15,31,92,0.25) 0%, transparent 50%),
         radial-gradient(circle at 85% 10%, rgba(15,31,92,0.20) 0%, transparent 55%),
         linear-gradient(135deg, #0A1D40 0%, #0F1F5C 60%, #111827 100%);
+}
+
+.theme-dawn {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255,180,160,0.45), transparent 55%),
+        linear-gradient(135deg, #FFE5D2 0%, #F7C6B4 50%, #F0AFA0 100%);
+}
+
+.theme-sand {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(230,210,180,0.4), transparent 55%),
+        linear-gradient(135deg, #F2E9D8 0%, #E4D4B2 55%, #D6C29B 100%);
+}
+
+.theme-cosmic {
+    background:
+        radial-gradient(circle at 25% 30%, rgba(255,225,130,0.5), transparent 60%),
+        radial-gradient(circle at 70% 20%, rgba(150,80,255,0.4), transparent 60%),
+        linear-gradient(135deg, #1A093F 0%, #3B1C67 50%, #62419C 100%);
+}
+
+.theme-clean {
+    background:
+        linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%);
+}
+
+
+/* -----------------------------------------------------------
+   THEME PREVIEW SWATCHES
+----------------------------------------------------------- */
+.themePreviewRow {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.themePreview {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.themePreview-lumi {
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 60%),
+        linear-gradient(135deg, #0A1D40 0%, #0F1F5C 60%, #111827 100%);
+}
+.themePreview-dawn {
+    background:
+        linear-gradient(135deg, #FFE5D2 0%, #F7C6B4 50%, #F0AFA0 100%);
+}
+.themePreview-sand {
+    background:
+        linear-gradient(135deg, #F2E9D8 0%, #E4D4B2 55%, #D6C29B 100%);
+}
+.themePreview-cosmic {
+    background:
+        linear-gradient(135deg, #1A093F 0%, #3B1C67 50%, #62419C 100%);
+}
+.themePreview-clean {
+    background:
+        linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.activeThemePreview {
+    border-color: #0F1F5C;
+    box-shadow: 0 0 0 3px rgba(15,31,92,0.2);
 }
 
 
