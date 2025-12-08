@@ -13,18 +13,18 @@
 
     <!-- OpenGraph & Social Sharing -->
     <meta name="title" content="Reflective Bond – Lumi Studio">
-    <meta name="description" content="A gentle Lumi Studio reflection tool to soften the heart, restore connection, and rebuild warmth — one person at a time.">
+    <meta name="description" content="A gentle Lumi Studio reflection tool to soften the heart, regulate emotions, and rebuild warmth — one person at a time.">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://therealdtyh0601.github.io/ReflectiveBond/">
     <meta property="og:title" content="Reflective Bond – Lumi Studio">
-    <meta property="og:description" content="A gentle Lumi Studio micro-reflection to soften the heart, restore connection, and rebuild warmth — one person at a time.">
+    <meta property="og:description" content="A gentle Lumi Studio micro-reflection to soften the heart, regulate anger, and mend bonds.">
     <meta property="og:image" content="https://raw.githubusercontent.com/therealdtyh0601/ReflectiveBond/main/og-image.png">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://therealdtyh0601.github.io/ReflectiveBond/">
     <meta name="twitter:title" content="Reflective Bond – Lumi Studio">
-    <meta name="twitter:description" content="A gentle Lumi Studio micro-reflection to mend relationships and reconnect with warmth and clarity.">
+    <meta name="twitter:description" content="A gentle Lumi Studio micro-reflection to soften the heart, regulate anger, and mend bonds.">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/therealdtyh0601/ReflectiveBond/main/og-image.png">
 
     <meta name="theme-color" content="#0F1F5C">
@@ -40,17 +40,17 @@
     <div id="landingPage">
         <h1 class="landingTitle">Reflective Bond</h1>
         <p class="landingSubtitle">
-            A gentle Lumi Studio micro-reflection to soften the heart, restore connection, 
-            and rebuild warmth — one person at a time.
+            A gentle Lumi Studio micro-reflection to let your anger speak,
+            breathe through it, and rediscover the parts of this person you still care about.
         </p>
 
         <div class="landingGeo"></div>
 
         <!-- Language Selector -->
         <div id="languageSelect">
-            <button class="langBtn" onclick="selectLanguage('en')">English</button>
-            <button class="langBtn" onclick="selectLanguage('zh')">中文</button>
-            <button class="langBtn" onclick="selectLanguage('ms')">BM</button>
+            <button class="langBtn activeLang" data-lang="en" onclick="selectLanguage('en')">English</button>
+            <button class="langBtn" data-lang="zh" onclick="selectLanguage('zh')">中文</button>
+            <button class="langBtn" data-lang="ms" onclick="selectLanguage('ms')">BM</button>
         </div>
 
         <button onclick="startApp()" class="startBtn">Begin</button>
@@ -60,10 +60,25 @@
         </p>
     </div>
 
-    <!-- Form Container -->
+    <!-- Flow Container -->
     <div id="form" style="display:none; margin-top:20px;">
 
-        <!-- Step 1 -->
+        <!-- Step 1: User Info -->
+        <div id="userInfoStep" style="display:none;">
+            <h2 id="userInfoTitle"></h2>
+            <p id="userInfoInstruction"></p>
+
+            <label id="labelSenderName" for="senderName"></label>
+            <input type="text" id="senderName">
+
+            <label id="labelDate" for="reflectionDate"></label>
+            <input type="date" id="reflectionDate">
+
+            <button onclick="goToPersonStep()" id="btnUserNext"></button>
+            <button onclick="goBackToLanding()" class="backBtn">Back</button>
+        </div>
+
+        <!-- Step 2: Person -->
         <div id="step1" style="display:none;">
             <h2 id="title"></h2>
             <p id="instruction"></p>
@@ -72,60 +87,44 @@
             <input type="text" id="person">
 
             <button onclick="nextStep()" id="btnNext1"></button>
+            <button onclick="goBackToUserInfo()" class="backBtn">Back</button>
         </div>
 
-        <!-- Step 2 -->
+        <!-- Step 3: Challenges / Vent -->
         <div id="step2" style="display:none;">
             <label id="labelChallenges"></label>
             <textarea id="challenges" rows="5"></textarea>
 
             <button onclick="nextStep2()" id="btnNext2"></button>
-            <button onclick="goBackToStep1()" class="backBtn">Back</button>
+            <button onclick="goBackToPerson()" class="backBtn">Back</button>
         </div>
 
-        <!-- Step 3 -->
+        <!-- Step 4: Breathing Reset -->
+        <div id="breathStep" style="display:none;">
+            <h2 id="breathTitle"></h2>
+            <p id="breathText"></p>
+            <div class="breathCircle"></div>
+            <button onclick="goToAppreciations()" id="btnBreathNext"></button>
+            <button onclick="goBackToChallenges()" class="backBtn">Back</button>
+        </div>
+
+        <!-- Step 5: Appreciations -->
         <div id="step3" style="display:none;">
             <label id="labelAppreciations"></label>
             <textarea id="appreciations" rows="5"></textarea>
 
-            <button onclick="goToCTA()" id="btnNext3"></button>
-            <button onclick="goBackToStep2()" class="backBtn">Back</button>
+            <button onclick="goToOutput()" id="btnNext3"></button>
+            <button onclick="goBackToBreath()" class="backBtn">Back</button>
         </div>
 
-        <!-- CTA Section -->
-        <div id="ctaSection" style="display:none; margin-top:20px;">
-            <p id="ctaInstruction"></p>
-
-            <label style="display:block; margin:8px 0;">
-                <input type="checkbox" id="ctaLamp">
-                <span id="ctaLampText"></span>
-            </label>
-
-            <label style="display:block; margin:8px 0;">
-                <input type="checkbox" id="ctaFlower">
-                <span id="ctaFlowerText"></span>
-            </label>
-
-            <button onclick="generateReflection()" id="btnGenerate"></button>
-            <button onclick="goBackToStep3()" class="backBtn">Back</button>
-
-            <a id="offerButton" 
-               href="https://wa.me/60146205893?text=Hi%20Lumi%20Studio,%20I%20would%20like%20to%20request%20a%20lamp+flower%20offering."
-               target="_blank"
-               class="offerBtn">
-               Request Lamp + Flower Offering (Klang Valley Only)
-            </a>
-        </div>
-
-        <!-- Output Card -->
+        <!-- Final Output Card -->
         <div id="output" style="display:none; margin-top:30px;">
             <h2 id="outputTitle"></h2>
             <p id="outputIntro"></p>
             <p id="outputChallenges"></p>
             <p id="outputAppreciations"></p>
-            <p id="outputCTA"></p>
 
-            <!-- Healing Mantra (Typewriter-ready) -->
+            <!-- Healing Mantra -->
             <div id="healingBlock" class="healingBlock">
                 <p class="healingLine" id="h1"></p>
                 <p class="healingLine" id="h2"></p>
@@ -133,9 +132,29 @@
                 <p class="healingLine" id="h4"></p>
             </div>
 
+            <!-- Sender info -->
+            <p id="senderSignature" style="margin-top:18px; font-size:0.9rem; opacity:0.8;"></p>
+
+            <!-- Actions -->
             <button onclick="downloadCard()" id="downloadBtn">Download Card</button>
-            <button onclick="shareCard()" id="shareBtn">Share Card</button>
-            <button onclick="goBackToCTA()" class="backBtn">Back</button>
+            <button onclick="downloadStoryCard()" id="storyBtn">Download IG Story</button>
+            <button onclick="shareCard()" id="shareBtn">Share Card Link</button>
+
+            <!-- Order / Offering Options (Back of Card CTA) -->
+            <div id="orderOptions" style="margin-top:24px;">
+                <h3 id="orderTitle">Optional Offering & Delivery</h3>
+                <label style="display:block; margin:6px 0;">
+                    <input type="checkbox" id="offerLampFlower">
+                    <span id="offerLampFlowerText"></span>
+                </label>
+                <label style="display:block; margin:6px 0;">
+                    <input type="checkbox" id="offerFlowerCard">
+                    <span id="offerFlowerCardText"></span>
+                </label>
+                <button onclick="openWhatsAppOrder()" id="orderBtn"></button>
+            </div>
+
+            <button onclick="goBackToAppreciations()" class="backBtn">Back</button>
         </div>
 
     </div>
