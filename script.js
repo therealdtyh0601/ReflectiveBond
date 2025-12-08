@@ -1,427 +1,351 @@
-/* =======================================================================
-   LANGUAGE DATASET
-   (Unchanged – Your complete multi-language dataset)
-======================================================================= */
+/* ============================================================
+   REFLECTIVE BOND — FULL PRODUCTION SCRIPT (SAFE / VALIDATED)
+   Lumi Studio — 2025 Release
+   ============================================================ */
 
-const translations = {
-    en: {
-        userInfoTitle: "Before we begin…",
-        userInfoInstruction: "Your name and today’s date will appear at the end of your reflection.",
-        senderName: "Your Name",
-        date: "Date",
-        next: "Next",
-        personTitle: "Who are you writing about?",
-        personInstruction: "Enter the name or relation of the person you’re thinking of.",
-        personLabel: "Person",
-        challengesLabel: "List what frustrates or hurts you about this person:",
-        breathTitle: "Take a breath with me",
-        breathText: "We’ll take a few slow breaths before continuing. Follow the orb.",
-        appreciationsLabel: "Now list things you genuinely appreciate about this person:",
-        outputTitle: "Your Reflection",
-        outputOpening: "Here is your thoughtful reflection based on what you expressed:",
-        outputChallengesTitle: "What Hurts",
-        outputChallengesIntro: "These are the things weighing on your heart:",
-        outputAppreciationsTitle: "What You Still Value",
-        outputAppreciationsIntro: "Despite the hurts, these qualities still shine through:",
-        outputBridge: "Both truth and care can coexist. Awareness brings space.",
-        healing1: "May I see clearly.",
-        healing2: "May I soften where I can.",
-        healing3: "May I honour my boundaries.",
-        healing4: "May I act with steadiness and compassion.",
-        signature: "With reflection,",
-        orderTitle: "Would you like to send a small offering on their behalf?",
-        offerLampFlower: "A Lamp + Flower Offering",
-        offerFlowerCard: "A Flower Offering + Dedication Card",
-        orderBtn: "Order via WhatsApp",
-    },
-
-    zh: {
-        userInfoTitle: "在开始之前…",
-        userInfoInstruction: "你的名字和今天的日期会出现在反思卡片的结尾。",
-        senderName: "你的名字",
-        date: "日期",
-        next: "下一步",
-        personTitle: "你想写的人是谁？",
-        personInstruction: "输入你正在思考的那个人的名字或关系。",
-        personLabel: "对象",
-        challengesLabel: "列出令你伤心、生气或困扰的事情：",
-        breathTitle: "先一起深呼吸",
-        breathText: "我们会一起做几次缓慢的呼吸，然后再继续。",
-        appreciationsLabel: "现在写下你依然欣赏对方的地方：",
-        outputTitle: "你的反思",
-        outputOpening: "以下是根据你的表达整理出的完整反思：",
-        outputChallengesTitle: "让你受伤的地方",
-        outputChallengesIntro: "这些是你心里的重量：",
-        outputAppreciationsTitle: "你仍然珍惜的部分",
-        outputAppreciationsIntro: "尽管受伤，这些品质依然存在：",
-        outputBridge: "诚实与在乎可以共存，觉察让心更宽。 ",
-        healing1: "愿我看清事实。",
-        healing2: "愿我在可以的地方柔软。",
-        healing3: "愿我守护自己的界线。",
-        healing4: "愿我以稳重与慈心回应。",
-        signature: "致以觉知，",
-        orderTitle: "你想代表对方送出一点心意吗？",
-        offerLampFlower: "供灯＋供花",
-        offerFlowerCard: "供花＋祈愿卡片",
-        orderBtn: "WhatsApp 下单",
-    },
-
-    ms: {
-        userInfoTitle: "Sebelum kita mula…",
-        userInfoInstruction: "Nama dan tarikh hari ini akan muncul pada kad refleksi.",
-        senderName: "Nama Anda",
-        date: "Tarikh",
-        next: "Seterusnya",
-        personTitle: "Siapakah yang anda sedang fikirkan?",
-        personInstruction: "Masukkan nama atau hubungan orang tersebut.",
-        personLabel: "Individu",
-        challengesLabel: "Nyatakan perkara yang membuat anda marah atau terluka:",
-        breathTitle: "Tarik nafas perlahan",
-        breathText: "Mari kita ambil beberapa nafas perlahan sebelum meneruskan.",
-        appreciationsLabel: "Sekarang tulis apa yang anda masih hargai tentang individu ini:",
-        outputTitle: "Refleksi Anda",
-        outputOpening: "Berikut ialah refleksi berdasarkan apa yang anda kongsikan:",
-        outputChallengesTitle: "Apa yang Menyakitkan",
-        outputChallengesIntro: "Ini ialah perkara yang membebankan hati anda:",
-        outputAppreciationsTitle: "Apa yang Masih Berharga",
-        outputAppreciationsIntro: "Walaupun ada luka, nilai-nilai ini tetap wujud:",
-        outputBridge: "Kebenaran dan kasih boleh wujud bersama.",
-        healing1: "Semoga saya melihat dengan jelas.",
-        healing2: "Semoga saya lembut bila mampu.",
-        healing3: "Semoga saya menjaga batas saya.",
-        healing4: "Semoga saya bertindak dengan tenang dan belas.",
-        signature: "Dengan refleksi,",
-        orderTitle: "Adakah anda ingin menghantar sedikit dedikasi?",
-        offerLampFlower: "Pemberian Pelita + Bunga",
-        offerFlowerCard: "Pemberian Bunga + Kad Dedikasi",
-        orderBtn: "Pesan melalui WhatsApp",
-    }
-};
-
-
-/* =======================================================================
+/* --------------------------------------------
    GLOBAL STATE
-======================================================================= */
+--------------------------------------------- */
+let currentLanguage = "en";
+let breathTimer = null;
+let breathRemaining = 30;
+let orbAnimating = false;
 
-let currentLang = "en";
+/* --------------------------------------------
+   ERROR BAR
+--------------------------------------------- */
+function showError(msg) {
+    const bar = document.getElementById("errorBar");
+    bar.innerText = msg;
+    bar.style.display = "block";
+    setTimeout(() => {
+        bar.style.display = "none";
+    }, 3000);
+}
 
+/* --------------------------------------------
+   PAGE NAV
+--------------------------------------------- */
+function returnHome() {
+    hideAllPages();
+    document.getElementById("landingPage").style.display = "block";
+}
+
+function openPage(pageId) {
+    hideAllPages();
+    document.getElementById(pageId).style.display = "block";
+}
+
+function hideAllPages() {
+    document.querySelectorAll(".staticPage").forEach(p => p.style.display = "none");
+    document.getElementById("landingPage").style.display = "none";
+    document.getElementById("flow").style.display = "none";
+}
+
+/* --------------------------------------------
+   LANGUAGE HANDLING
+--------------------------------------------- */
 function selectLanguage(lang) {
-    currentLang = lang;
-    document.querySelectorAll(".langBtn").forEach(btn =>
-        btn.classList.remove("activeLang")
-    );
-    document.querySelector(`[data-lang="${lang}"]`).classList.add("activeLang");
+    currentLanguage = lang;
+
+    document.querySelectorAll(".langBtn").forEach(btn => btn.classList.remove("activeLang"));
+    document.querySelector(`.langBtn[data-lang=${lang}]`).classList.add("activeLang");
 }
 
-
-/* =======================================================================
-   TRANSLATION LOADER
-======================================================================= */
-
-function loadTranslations() {
-    const t = translations[currentLang];
-
-    document.getElementById("userInfoTitle").innerText = t.userInfoTitle;
-    document.getElementById("userInfoInstruction").innerText = t.userInfoInstruction;
-
-    document.getElementById("labelSenderName").innerText = t.senderName;
-    document.getElementById("labelDate").innerText = t.date;
-
-    document.getElementById("btnUserNext").innerText = t.next;
-
-    document.getElementById("stepPersonTitle").innerText = t.personTitle;
-    document.getElementById("stepPersonInstruction").innerText = t.personInstruction;
-    document.getElementById("labelPerson").innerText = t.personLabel;
-
-    document.getElementById("labelChallenges").innerText = t.challengesLabel;
-
-    document.getElementById("breathTitle").innerText = t.breathTitle;
-    document.getElementById("breathText").innerText = t.breathText;
-
-    document.getElementById("labelAppreciations").innerText = t.appreciationsLabel;
-
-    document.getElementById("outputTitle").innerText = t.outputTitle;
-    document.getElementById("outputOpening").innerText = t.outputOpening;
-    document.getElementById("outputChallengesTitle").innerText = t.outputChallengesTitle;
-    document.getElementById("outputChallengesIntro").innerText = t.outputChallengesIntro;
-    document.getElementById("outputAppreciationsTitle").innerText = t.outputAppreciationsTitle;
-    document.getElementById("outputAppreciationsIntro").innerText = t.outputAppreciationsIntro;
-    document.getElementById("outputBridge").innerText = t.outputBridge;
-
-    document.getElementById("h1").innerText = t.healing1;
-    document.getElementById("h2").innerText = t.healing2;
-    document.getElementById("h3").innerText = t.healing3;
-    document.getElementById("h4").innerText = t.healing4;
-
-    document.getElementById("outputOrderTitle").innerText = t.orderTitle;
-    document.getElementById("offerLampFlowerText").innerText = t.offerLampFlower;
-    document.getElementById("offerFlowerCardText").innerText = t.offerFlowerCard;
-    document.getElementById("orderBtn").innerText = t.orderBtn;
-}
-
-
-/* =======================================================================
-   PAGE FLOW
-======================================================================= */
-
+/* --------------------------------------------
+   START FLOW
+--------------------------------------------- */
 function startApp() {
-    loadTranslations();
-
     hideAllPages();
     document.getElementById("flow").style.display = "block";
     document.getElementById("userInfoStep").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
+
+    // Auto-fill date with device locale
+    document.getElementById("reflectionDate").value = new Date().toISOString().split("T")[0];
 }
 
-
-/* STEP 1 → STEP 2 */
+/* --------------------------------------------
+   STEP NAVIGATION
+--------------------------------------------- */
 function goToPersonStep() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
+    const senderName = document.getElementById("senderName").value.trim();
+    if (!isMeaningful(senderName)) {
+        showError("Please enter your name.");
+        return;
+    }
+
+    document.getElementById("userInfoStep").style.display = "none";
     document.getElementById("stepPerson").style.display = "block";
 }
 
-/* STEP 2 → STEP 3 */
+function goBackToUserInfo() {
+    document.getElementById("stepPerson").style.display = "none";
+    document.getElementById("userInfoStep").style.display = "block";
+}
+
 function goToChallengesStep() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
+    const person = document.getElementById("person").value.trim();
+    if (!isMeaningful(person)) {
+        showError("Please enter the recipient’s name.");
+        return;
+    }
+
+    document.getElementById("stepPerson").style.display = "none";
     document.getElementById("stepChallenges").style.display = "block";
 }
 
-
-/* STEP 3 → STEP 4: BREATHWORK */
-let breathInterval;
-let breathSeconds = 12;
+function goBackToPerson() {
+    document.getElementById("stepChallenges").style.display = "none";
+    document.getElementById("stepPerson").style.display = "block";
+}
 
 function startBreathwork() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
+    let vents = collectVents();
+    if (vents.length < 1) {
+        showError("Please enter at least one difficulty.");
+        return;
+    }
+
+    document.getElementById("stepChallenges").style.display = "none";
     document.getElementById("breathStep").style.display = "block";
 
-    breathSeconds = 12;
-    document.getElementById("breathCountdown").innerText = breathSeconds;
+    startBreathingCountdown();
+}
 
-    if (breathInterval) clearInterval(breathInterval);
+function goBackToChallenges() {
+    stopBreathingCountdown();
+    document.getElementById("breathStep").style.display = "none";
+    document.getElementById("stepChallenges").style.display = "block";
+}
 
-    breathInterval = setInterval(() => {
-        breathSeconds--;
-        document.getElementById("breathCountdown").innerText = breathSeconds;
+function goToAppreciationsStep() {
+    document.getElementById("breathStep").style.display = "none";
+    document.getElementById("stepAppreciations").style.display = "block";
+}
 
-        if (breathSeconds <= 0) {
-            clearInterval(breathInterval);
+function goBackToBreath() {
+    document.getElementById("stepAppreciations").style.display = "none";
+    document.getElementById("breathStep").style.display = "block";
+}
+
+function goBackToAppreciations() {
+    document.getElementById("output").style.display = "none";
+    document.getElementById("stepAppreciations").style.display = "block";
+}
+
+/* --------------------------------------------
+   INPUT VALIDATION HELPERS
+--------------------------------------------- */
+function isMeaningful(text) {
+    // Checks for letters, numbers, or CJK characters
+    return /[A-Za-z0-9\u4e00-\u9fa5]/.test(text);
+}
+
+function enforceLimit(input) {
+    if (input.value.length > 120) {
+        input.value = input.value.substring(0, 120);
+        showError("Each item must be under 120 characters.");
+    }
+}
+
+/* --------------------------------------------
+   COLLECTORS
+--------------------------------------------- */
+function collectVents() {
+    let list = [];
+    for (let i = 1; i <= 5; i++) {
+        let val = document.getElementById(`vent${i}`).value.trim();
+        if (isMeaningful(val)) list.push(val.substring(0, 120));
+    }
+    return list;
+}
+
+function collectApps() {
+    let list = [];
+    for (let i = 1; i <= 5; i++) {
+        let val = document.getElementById(`app${i}`).value.trim();
+        if (isMeaningful(val)) list.push(val.substring(0, 120));
+    }
+    return list;
+}
+
+/* --------------------------------------------
+   BREATHING MODULE
+--------------------------------------------- */
+function startBreathingCountdown() {
+    if (breathTimer) clearInterval(breathTimer);
+    breathRemaining = 30;
+
+    const orb = document.querySelector(".breathOrb");
+    orbAnimating = true;
+
+    let inhale = true;
+
+    breathTimer = setInterval(() => {
+        document.getElementById("breathCountdown").innerText = breathRemaining;
+
+        if (breathRemaining % 6 === 0) {
+            inhale = !inhale;
+            orb.style.transform = inhale ? "scale(1.2)" : "scale(0.8)";
+        }
+
+        breathRemaining--;
+
+        if (breathRemaining <= 0) {
+            stopBreathingCountdown();
             document.getElementById("btnBreathNext").disabled = false;
         }
     }, 1000);
 }
 
-
-/* STEP 4 → STEP 5 */
-function goToAppreciationsStep() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("stepAppreciations").style.display = "block";
+function stopBreathingCountdown() {
+    if (breathTimer) clearInterval(breathTimer);
+    orbAnimating = false;
 }
 
-
-/* STEP 5 → STEP 6 */
+/* --------------------------------------------
+   FINAL REFLECTION GENERATION
+--------------------------------------------- */
 function generateReflection() {
-    hideAllPages();
-    loadTranslations();
+    let vents = collectVents();
+    let apps = collectApps();
 
-    const t = translations[currentLang];
+    if (apps.length < 1) {
+        showError("Please enter at least one appreciation.");
+        return;
+    }
 
-    document.getElementById("flow").style.display = "block";
+    const person = document.getElementById("person").value.trim();
+    const sender = document.getElementById("senderName").value.trim();
+    const date = document.getElementById("reflectionDate").value;
+
+    if (!isMeaningful(sender)) {
+        showError("Please enter your name.");
+        return;
+    }
+
+    document.getElementById("stepAppreciations").style.display = "none";
     document.getElementById("output").style.display = "block";
 
-    const sender = document.getElementById("senderName").value || "Someone";
-    const date = document.getElementById("reflectionDate").value || "";
-
-    const challenges = document.getElementById("challenges").value.trim().split("\n").filter(Boolean);
-    const appreciations = document.getElementById("appreciations").value.trim().split("\n").filter(Boolean);
+    /* Populate card */
+    document.getElementById("outputRecipientName").innerText = person;
+    document.getElementById("outputSignature").innerText = `${sender} — ${date}`;
 
     document.getElementById("outputChallenges").innerHTML =
-        challenges.map(c => `<p>• ${c}</p>`).join("");
+        vents.map(i => `• ${i}`).join("<br>");
 
     document.getElementById("outputAppreciations").innerHTML =
-        appreciations.map(a => `<p>• ${a}</p>`).join("");
-
-    const signature = `${t.signature}\n${sender}\n${date}`;
-    document.getElementById("outputSignature").innerText = signature;
+        apps.map(i => `• ${i}`).join("<br>");
 }
 
-
-/* =======================================================================
-   OFFERING & WHATSAPP ORDER
-======================================================================= */
-
-function openWhatsAppOrder() {
-    const selected = [];
-
-    if (document.getElementById("offerLampFlower").checked)
-        selected.push("Lamp + Flower");
-
-    if (document.getElementById("offerFlowerCard").checked)
-        selected.push("Flower + Card");
-
-    const msg = encodeURIComponent(`Offering Request:\n${selected.join(", ")}`);
-    const url = `https://wa.me/60123456789?text=${msg}`;
-
-    window.open(url, "_blank");
+/* --------------------------------------------
+   THEME SELECTOR
+--------------------------------------------- */
+function setTheme(theme) {
+    const card = document.getElementById("outputCard");
+    card.className = ""; // reset classes
+    card.classList.add(theme);
 }
 
-
-/* =======================================================================
-   CARD GENERATION (HTML2CANVAS)
-======================================================================= */
-
-function downloadCard() {
-    html2canvas(document.getElementById("output")).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "reflection-card.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-    });
-}
-
-function downloadStoryCard() {
-    html2canvas(document.getElementById("output"), {
-        width: 1080,
-        height: 1920,
-        scale: 3
-    }).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "reflection-story.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-    });
-}
-
-
-/* =======================================================================
-   SHARE LINK
-======================================================================= */
-
+/* --------------------------------------------
+   SHAREABLE LINK CREATOR
+--------------------------------------------- */
 function shareCard() {
-    const data = {
-        name: document.getElementById("senderName").value,
-        person: document.getElementById("person").value,
-        challenges: document.getElementById("challenges").value,
-        appreciations: document.getElementById("appreciations").value,
-        lang: currentLang,
-    };
+    const base = window.location.origin + window.location.pathname + "recipient.html";
+    const person = encodeURIComponent(document.getElementById("person").value);
+    const vents = encodeURIComponent(collectVents().join("||"));
+    const apps = encodeURIComponent(collectApps().join("||"));
+    const sender = encodeURIComponent(document.getElementById("senderName").value);
+    const date = encodeURIComponent(document.getElementById("reflectionDate").value);
 
-    const url = new URL(window.location.href);
-    url.searchParams.set("data", btoa(JSON.stringify(data)));
+    const link = `${base}?p=${person}&v=${vents}&a=${apps}&s=${sender}&d=${date}`;
+    navigator.clipboard.writeText(link);
 
-    navigator.clipboard.writeText(url.toString());
-
-    alert("Link copied to clipboard!");
+    showError("Shareable link copied to clipboard.");
 }
 
+/* --------------------------------------------
+   OFFERING HANDLER
+--------------------------------------------- */
+function openWhatsAppOrder() {
+    const offer1 = document.getElementById("offerLampFlower").checked;
+    const offer2 = document.getElementById("offerFlowerCard").checked;
 
-/* =======================================================================
-   READER MODE FOR SHARED LINKS (recipient.html)
-======================================================================= */
+    if (!offer1 && !offer2) {
+        showError("Please select at least one offering.");
+        return;
+    }
 
-(function loadSharedCardIfPresent() {
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has("data")) return;
+    let message = "Hi, I would like to offer:\n";
+    if (offer1) message += "- Lamp + Flower Offering\n";
+    if (offer2) message += "- Flower Offering + Dedication Card\n";
 
-    const raw = atob(params.get("data"));
-    const obj = JSON.parse(raw);
+    window.open(`https://wa.me/60123456789?text=${encodeURIComponent(message)}`);
+}
 
-    document.getElementById("recipientName").innerText = obj.name;
-    document.getElementById("recipientPerson").innerText = obj.person;
+/* --------------------------------------------
+   DOWNLOAD (with iPhone fallback)
+--------------------------------------------- */
+function downloadCard() {
+    const node = document.getElementById("outputCard");
 
-    document.getElementById("recipientChallenges").innerHTML =
-        obj.challenges.split("\n").map(c => `<p>• ${c}</p>`).join("");
+    html2canvas(node, {scale: 2}).then(canvas => {
+        const dataURL = canvas.toDataURL("image/png");
 
-    document.getElementById("recipientAppreciations").innerHTML =
-        obj.appreciations.split("\n").map(a => `<p>• ${a}</p>`).join("");
-})();
+        // Safari / iPhone fallback
+        if (navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome")) {
+            const newTab = window.open();
+            newTab.document.write(`<img src="${dataURL}" style="width:100%">`);
+            showError("Long-press the image to save.");
+            return;
+        }
 
-
-/* =======================================================================
-   STATIC PAGE NAVIGATION + HOME BUTTON SYSTEM
-======================================================================= */
-
-/** Hide EVERYTHING */
-function hideAllPages() {
-    const landing = document.getElementById("landingPage");
-    if (landing) landing.style.display = "none";
-
-    const flow = document.getElementById("flow");
-    if (flow) flow.style.display = "none";
-
-    document.querySelectorAll(".staticPage").forEach(p => {
-        p.style.display = "none";
+        const link = document.createElement("a");
+        link.download = "ReflectiveBondCard.png";
+        link.href = dataURL.replace("image/png", "image/octet-stream");
+        link.click();
     });
 }
 
-/** Open static page */
-function openPage(id) {
-    hideAllPages();
-    const page = document.getElementById(id);
-    if (page) page.style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
+/* --------------------------------------------
+   STORY CARD DOWNLOAD (1080x1920)
+--------------------------------------------- */
+function downloadStoryCard() {
+    const node = document.getElementById("outputCard");
+    node.classList.add("storyMode");
+
+    html2canvas(node, {scale: 2}).then(canvas => {
+        const dataURL = canvas.toDataURL("image/png");
+
+        if (navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome")) {
+            const newTab = window.open();
+            newTab.document.write(`<img src="${dataURL}" style="width:100%">`);
+            showError("Long-press the image to save.");
+            node.classList.remove("storyMode");
+            return;
+        }
+
+        const link = document.createElement("a");
+        link.download = "ReflectiveBond_StoryCard.png";
+        link.href = dataURL.replace("image/png", "image/octet-stream");
+        link.click();
+
+        node.classList.remove("storyMode");
+    });
 }
 
-/** Return home */
-function returnHome() {
-    hideAllPages();
-    document.getElementById("landingPage").style.display = "block";
-    document.getElementById("homeBtn").style.display = "none";
-}
+/* --------------------------------------------
+   BACK BUTTON PROTECTION
+--------------------------------------------- */
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.pushState(null, null, location.href);
+    showError("Use the in-app Back button to navigate.");
+};
 
-/** Show flow wrapper */
-function showFlow() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
-}
-
-
-/* =======================================================================
-   BACKWARD NAVIGATION (within flow)
-======================================================================= */
-
-function goBackToLanding() {
-    returnHome();
-}
-
-function goBackToUserInfo() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("userInfoStep").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
-}
-
-function goBackToPerson() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("stepPerson").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
-}
-
-function goBackToChallenges() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("stepChallenges").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
-}
-
-function goBackToBreath() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("breathStep").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
-}
-
-function goBackToAppreciations() {
-    hideAllPages();
-    document.getElementById("flow").style.display = "block";
-    document.getElementById("stepAppreciations").style.display = "block";
-    document.getElementById("homeBtn").style.display = "flex";
-}
-
-/* End of File */
+/* --------------------------------------------
+   REFRESH WARNING
+--------------------------------------------- */
+window.onbeforeunload = function () {
+    return "Your reflection will be lost if you leave this page.";
+};
