@@ -1,46 +1,95 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Think of a Person</title>
+    <title>Reflective Bond – Lumi Studio</title>
+
+    <!-- Google AdSense Auto Ads -->
+    <script async 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9188806824600550"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- OpenGraph & Social Sharing -->
+    <meta name="title" content="Reflective Bond – Lumi Studio">
+    <meta name="description" content="A gentle Lumi Studio reflection tool to soften the heart, restore connection, and rebuild warmth — one person at a time.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://therealdtyh0601.github.io/ReflectiveBond/">
+    <meta property="og:title" content="Reflective Bond – Lumi Studio">
+    <meta property="og:description" content="A gentle Lumi Studio micro-reflection to soften the heart, restore connection, and rebuild warmth — one person at a time.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/therealdtyh0601/ReflectiveBond/main/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://therealdtyh0601.github.io/ReflectiveBond/">
+    <meta name="twitter:title" content="Reflective Bond – Lumi Studio">
+    <meta name="twitter:description" content="A gentle Lumi Studio micro-reflection to mend relationships and reconnect with warmth and clarity.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/therealdtyh0601/ReflectiveBond/main/og-image.png">
+
+    <meta name="theme-color" content="#0F1F5C">
+    <link rel="canonical" href="https://therealdtyh0601.github.io/ReflectiveBond/">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 <div class="container">
 
-    <!-- Language Selection -->
-    <h1>Select Language / 选择语言 / Pilih Bahasa</h1>
-    <button onclick="setLanguage('en')" id="btnEN">English</button>
-    <button onclick="setLanguage('zh')" id="btnZH">中文</button>
-    <button onclick="setLanguage('ms')" id="btnMS">Bahasa Melayu</button>
+    <!-- Landing Page -->
+    <div id="landingPage">
+        <h1 class="landingTitle">Reflective Bond</h1>
+        <p class="landingSubtitle">
+            A gentle Lumi Studio micro-reflection to soften the heart, restore connection, 
+            and rebuild warmth — one person at a time.
+        </p>
 
-    <!-- FORM -->
+        <div class="landingGeo"></div>
+
+        <!-- Language Selector -->
+        <div id="languageSelect">
+            <button class="langBtn" onclick="selectLanguage('en')">English</button>
+            <button class="langBtn" onclick="selectLanguage('zh')">中文</button>
+            <button class="langBtn" onclick="selectLanguage('ms')">BM</button>
+        </div>
+
+        <button onclick="startApp()" class="startBtn">Begin</button>
+
+        <p class="landingNote">
+            No login. No data stored. All reflections remain on your device.
+        </p>
+    </div>
+
+    <!-- Form Container -->
     <div id="form" style="display:none; margin-top:20px;">
 
-        <!-- Step 1: Person -->
+        <!-- Step 1 -->
         <div id="step1" style="display:none;">
             <h2 id="title"></h2>
             <p id="instruction"></p>
 
             <label id="labelPerson" for="person"></label>
             <input type="text" id="person">
+
             <button onclick="nextStep()" id="btnNext1"></button>
         </div>
 
-        <!-- Step 2: Challenges -->
+        <!-- Step 2 -->
         <div id="step2" style="display:none;">
             <label id="labelChallenges"></label>
             <textarea id="challenges" rows="5"></textarea>
+
             <button onclick="nextStep2()" id="btnNext2"></button>
+            <button onclick="goBackToStep1()" class="backBtn">Back</button>
         </div>
 
-        <!-- Step 3: Appreciations -->
+        <!-- Step 3 -->
         <div id="step3" style="display:none;">
             <label id="labelAppreciations"></label>
             <textarea id="appreciations" rows="5"></textarea>
+
             <button onclick="goToCTA()" id="btnNext3"></button>
+            <button onclick="goBackToStep2()" class="backBtn">Back</button>
         </div>
 
         <!-- CTA Section -->
@@ -58,21 +107,51 @@
             </label>
 
             <button onclick="generateReflection()" id="btnGenerate"></button>
+            <button onclick="goBackToStep3()" class="backBtn">Back</button>
+
+            <a id="offerButton" 
+               href="https://wa.me/60146205893?text=Hi%20Lumi%20Studio,%20I%20would%20like%20to%20request%20a%20lamp+flower%20offering."
+               target="_blank"
+               class="offerBtn">
+               Request Lamp + Flower Offering (Klang Valley Only)
+            </a>
         </div>
 
-        <!-- OUTPUT CARD -->
+        <!-- Output Card -->
         <div id="output" style="display:none; margin-top:30px;">
             <h2 id="outputTitle"></h2>
             <p id="outputIntro"></p>
             <p id="outputChallenges"></p>
             <p id="outputAppreciations"></p>
             <p id="outputCTA"></p>
+
+            <!-- Healing Mantra (Typewriter-ready) -->
+            <div id="healingBlock" class="healingBlock">
+                <p class="healingLine" id="h1"></p>
+                <p class="healingLine" id="h2"></p>
+                <p class="healingLine" id="h3"></p>
+                <p class="healingLine" id="h4"></p>
+            </div>
+
+            <button onclick="downloadCard()" id="downloadBtn">Download Card</button>
+            <button onclick="shareCard()" id="shareBtn">Share Card</button>
+            <button onclick="goBackToCTA()" class="backBtn">Back</button>
         </div>
 
-    </div> <!-- end #form -->
+    </div>
 
-</div> <!-- end .container -->
+    <!-- Footer -->
+    <footer id="lumiFooter">
+        <div class="footerGeo"></div>
+        <p class="footerText">Powered by Lumi Studio</p>
+        <p class="footerSig">A micro-reflection experience</p>
+    </footer>
 
+</div>
+
+<!-- html2canvas -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
