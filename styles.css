@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8; /* Light background for a clean look */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid #0F1F5C; /* Lumi deep-blue border */
+}
+
+h1, h2 {
+    color: #0F1F5C; /* Deep blue for headings */
+}
+
+button {
+    background-color: #0F1F5C; /* Deep blue buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0d1a48; /* Slightly darker blue on hover */
+}
+
+input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #0F1F5C; /* Deep blue border for inputs */
+    border-radius: 4px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #0F1F5C;
+}
+
+#output {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 2px solid #0F1F5C; /* Deep blue line for output section */
+}
