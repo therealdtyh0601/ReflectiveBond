@@ -6,38 +6,73 @@
     <title>Think of a Person</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Select Language / 选择语言 / Pilih Bahasa</h1>
-        <button onclick="setLanguage('en')">English</button>
-        <button onclick="setLanguage('zh')">中文</button>
-        <button onclick="setLanguage('ms')">Bahasa Melayu</button>
 
-        <div id="form" style="display:none;">
+<body>
+<div class="container">
+
+    <!-- Language Selection -->
+    <h1>Select Language / 选择语言 / Pilih Bahasa</h1>
+    <button onclick="setLanguage('en')" id="btnEN">English</button>
+    <button onclick="setLanguage('zh')" id="btnZH">中文</button>
+    <button onclick="setLanguage('ms')" id="btnMS">Bahasa Melayu</button>
+
+    <!-- FORM -->
+    <div id="form" style="display:none; margin-top:20px;">
+
+        <!-- Step 1: Person -->
+        <div id="step1" style="display:none;">
             <h2 id="title"></h2>
             <p id="instruction"></p>
-            
-            <div id="step1">
-                <label id="labelPerson" for="person"></label>
-                <input type="text" id="person" placeholder="">
-                <button onclick="nextStep()">Next</button>
-            </div>
-            
-            <div id="step2" style="display:none;">
-                <label id="labelChallenges" for="challenges"></label>
-                <textarea id="challenges" placeholder=""></textarea>
-                <button onclick="nextStep()">Next</button>
-            </div>
-            
-            <div id="step3" style="display:none;">
-                <label id="labelAppreciations" for="appreciations"></label>
-                <textarea id="appreciations" placeholder=""></textarea>
-                <button onclick="generateReflection()">Generate Reflection</button>
+
+            <label id="labelPerson" for="person"></label>
+            <input type="text" id="person">
+            <button onclick="nextStep()" id="btnNext1"></button>
         </div>
 
-            <div id="output" style="display:none;"></div>
-    </div>
+        <!-- Step 2: Challenges -->
+        <div id="step2" style="display:none;">
+            <label id="labelChallenges"></label>
+            <textarea id="challenges" rows="5"></textarea>
+            <button onclick="nextStep2()" id="btnNext2"></button>
+        </div>
 
-    <script src="script.js"></script>
+        <!-- Step 3: Appreciations -->
+        <div id="step3" style="display:none;">
+            <label id="labelAppreciations"></label>
+            <textarea id="appreciations" rows="5"></textarea>
+            <button onclick="goToCTA()" id="btnNext3"></button>
+        </div>
+
+        <!-- CTA Section -->
+        <div id="ctaSection" style="display:none; margin-top:20px;">
+            <p id="ctaInstruction"></p>
+
+            <label style="display:block; margin:8px 0;">
+                <input type="checkbox" id="ctaLamp">
+                <span id="ctaLampText"></span>
+            </label>
+
+            <label style="display:block; margin:8px 0;">
+                <input type="checkbox" id="ctaFlower">
+                <span id="ctaFlowerText"></span>
+            </label>
+
+            <button onclick="generateReflection()" id="btnGenerate"></button>
+        </div>
+
+        <!-- OUTPUT CARD -->
+        <div id="output" style="display:none; margin-top:30px;">
+            <h2 id="outputTitle"></h2>
+            <p id="outputIntro"></p>
+            <p id="outputChallenges"></p>
+            <p id="outputAppreciations"></p>
+            <p id="outputCTA"></p>
+        </div>
+
+    </div> <!-- end #form -->
+
+</div> <!-- end .container -->
+
+<script src="script.js"></script>
 </body>
 </html>
