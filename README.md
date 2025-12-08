@@ -1,222 +1,172 @@
----
+# Reflective Bond
 
-# Reflective Bond – Lumi Studio
+*A Lumi Studio Micro-Reflection Tool for Softening the Heart & Mending Bonds*
 
-*A gentle micro-reflection app for softening anger, restoring clarity, and mending human connections.*
+Reflective Bond is a lightweight, private, browser-based reflection experience designed to help users:
 
----
+1. Release emotional charge
+2. Breathe and regulate
+3. Reconnect with what they still appreciate about another person
+4. Generate a meaningful reflection card to keep or share
 
-## Overview
-
-**Reflective Bond** is a lightweight, multilingual (English, 中文, Bahasa Malaysia) web application designed to help users:
-
-1. Safely express emotional friction toward someone they know.
-2. Pause for a guided breathwork reset.
-3. Revisit the same person from a softened, appreciative perspective.
-4. Generate a healing card — balanced, honest, emotionally intelligent — to mend bonds.
-
-No account needed.
-No storage.
-All reflections remain on the user’s device.
-
-This project is built as a free, open-web experience aligned with **Lumi Studio**’s design ethos:
-deep blue geometry, emotional clarity, and secular-universal compassion.
+No login. No database. All writing stays on the user's device unless they choose to download or share it.
 
 ---
 
-## Features
+## ✨ Features
 
-### ✔ Multilingual Support
+### **1. Multi-Language Support**
 
-* **English**
-* **中文（简体）**
-* **Bahasa Malaysia**
+* English
+* Chinese (中文)
+* Malay (BM)
 
-Language selection affects the entire experience, including tone, instructions, card output, and healing mantra.
-
----
-
-### ✔ Structured Reflection Journey
-
-1. **User info** (name + date for signature)
-2. **Person selection** (recipient or relationship label)
-3. **Vent page** (3–5 things causing hurt or anger)
-4. **Guided Breathwork** (10s breathing orb to reset emotional intensity)
-5. **Appreciation page** (3–5 things you still cherish)
-6. **Balanced Healing Card**
-7. **Optional: Buddhist lamp + flower offering / flower delivery**
-8. **Shareable recipient card**
+The interface updates instantly based on language selection.
 
 ---
 
-### ✔ Healing Mantra (Auto-Typewriter)
+### **2. Guided Emotional Reflection Flow**
 
-Based on *I’m Sorry, Please Forgive Me, Thank You, I Love You*, rendered in three languages.
+The experience follows a gentle, structured 6-step journey:
 
----
-
-### ✔ IG Story Export (1080 × 1920)
-
-* 5 selectable themes:
-
-  * Lumi Deep Blue
-  * Soft Gradient Dawn
-  * Warm Neutral Sand
-  * Cosmic Violet
-  * Minimal Clean White
-* Auto typography adjustment by language
-* Dark/light contrast mode
-* High-resolution PNG export (2× scaling)
+1. **User details** (name + date)
+2. **Person identification**
+3. **List frustrations / hurt**
+4. **Guided breathing with animated orb**
+5. **List appreciation / admiration**
+6. **Auto-generated reflection card**
 
 ---
 
-### ✔ Fully Shareable Card Link
+### **3. Auto-Generated Reflection Card**
 
-Each card can be encoded and shared privately with recipients.
-The recipient opens a **clean read-only view** of the card, with download and IG story export.
+The tool assembles a meaningful message including:
 
----
-
-### ✔ Optional Service Integration
-
-Users may request via WhatsApp:
-
-* **Buddha altar lamp + flower offering**
-* **Card + flower delivery** (Klang Valley only, 24-hour SLA)
-
-All handled through a prefilled WhatsApp message.
+* Emotional challenges
+* Appreciations
+* A bridging paragraph
+* A short healing mantra
+* Sender name + date
+* Optional offering selection (Lamp + Flower, Flower + Card)
+* Theme previews
+* Downloadable PNG card
+* IG Story–size export (1080×1920)
 
 ---
 
-## Tech Stack
+### **4. Private by Design**
 
-* **HTML5**
-* **CSS3** (Lumi brand palette + geometric accents)
-* **Vanilla JavaScript**
-* **html2canvas** for image rendering
-* **Base64 encoding** for shareable links
-* **GitHub Pages** for hosting
-
-No frameworks.
-No backend.
-No database.
-
-This keeps deployment extremely lightweight and costs at **zero**.
+* Zero backend
+* No server storage
+* No cookies or analytics
+* Everything stays client-side
+* Reflection can be shared only by user choice (encoded URL)
 
 ---
 
-## Project Structure
+### **5. Home Navigation & Static Pages**
+
+Includes:
+
+* **Home button** (top-left)
+* **Terms of Use**
+* **Privacy Policy**
+* **Disclaimer**
+* **About Lumi Studio**
+
+---
+
+### **6. Cross-Platform**
+
+Optimized for:
+
+* iPhone Safari
+* Android Chrome
+* Desktop Chrome/Edge/Firefox
+* GitHub Pages hosting
+
+---
+
+## 🗂️ Project Structure
 
 ```
 ReflectiveBond/
 │
-├── index.html          # Main app (input → breathwork → appreciation → result)
-├── styles.css          # Lumi Studio styling system
-├── script.js           # Multilingual logic, IG story generation, sharing
+├── index.html          # Main UI
+├── styles.css          # Complete Lumi Studio styling
+├── script.js           # Full reflection logic + navigation system
 │
-├── recipient.html      # Read-only view for recipients
-└── recipient.js        # Rendering + typewriter animation for shared cards
+├── recipient.html      # Shared link reader mode
+├── recipient.js        # Rendering for shared reflections
+│
+└── README.md           # You are reading this
 ```
 
 ---
 
-## Deployment (GitHub Pages)
+## 🚀 Local Development
 
-1. Create a new public repository.
-2. Upload all five files to the root.
-3. Go to **Settings → Pages**.
-4. Under “Source”, select:
+Clone the repo:
 
-   ```
-   main branch / root
-   ```
-5. Save.
-6. Your site will appear at:
-
-```
-https://<your-username>.github.io/<your-repo-name>/
+```bash
+git clone https://github.com/therealdtyh0601/ReflectiveBond
+cd ReflectiveBond
 ```
 
----
+Open `index.html` directly in your browser.
 
-## How to Use
-
-### 1. Open the app
-
-Select English / 中文 / BM.
-
-### 2. Fill in your name + date
-
-Will appear on the final card signature.
-
-### 3. Choose a person
-
-A relationship label or name.
-
-### 4. Vent safely
-
-Write 3–5 things you dislike or feel hurt by.
-
-### 5. Breathe
-
-A 10-second guided breathing animation resets emotional intensity.
-
-### 6. Reframe
-
-Write 3–5 qualities you still appreciate.
-
-### 7. Download / Share
-
-Generate:
-
-* Reflection card PNG
-* IG Story PNG (1080 × 1920)
-* Shareable link for the recipient
-
-### 8. Optional service ordering
-
-Click WhatsApp CTA to request offerings/delivery.
+No build tools required.
 
 ---
 
-## Customisation
+## 🌐 Deployment (GitHub Pages)
 
-You may customise:
+1. Go to **Settings → Pages**
+2. Select **Branch: main / root**
+3. Save
+4. Your app appears at:
 
-* Color themes
-* Brand palette
-* Healing lines
-* Available languages
-* IG story layout
-* Offering options
+```
+https://therealdtyh0601.github.io/ReflectiveBond/
+```
 
-All main configurations are inside **`script.js`**, clearly commented.
-
----
-
-## Known Limitations
-
-* Sharing uses `btoa()` Base64 encoding; very large text may exceed URL limits.
-* iOS Safari’s `navigator.share()` availability varies.
-* html2canvas does not capture certain advanced CSS filters.
-* The app intentionally stores nothing; refreshing the page clears all data.
+Updates deploy automatically when you push to `main`.
 
 ---
 
-## Licence
+## 🔒 Privacy & Safety Notes
 
-This project is released under an **MIT License**.
-You may modify, fork, or deploy it freely.
+Reflective Bond is:
 
-Attribution to **Lumi Studio** is appreciated but not required.
+* **Not a mental health service**
+* **Not therapeutic advice**
+* A gentle reflection aid only
+* Intended for emotional clarity, not diagnosis
+
+Encourage users to seek real support if they feel overwhelmed.
 
 ---
 
-## Credits
+## 💡 Future Enhancements (Optional Wishlist)
 
-Designed & developed collaboratively with
-**Lumi Studio — Emotional Clarity for Modern Hearts**
+* Export to PDF
+* More IG Story themes
+* Dark mode
+* Voice-guided breathing
+* Advanced editor mode
 
-Deep blue geometry × secular compassion × universal accessibility.
+---
+
+## 🖤 A Lumi Studio Creation
+
+Reflective Bond is part of Lumi Studio’s micro-reflection series, designed for:
+
+* Contemporary emotional support
+* Secular mindfulness
+* Universal psychological accessibility
+* Gen Z & Alpha-friendly interfaces
+
+If you'd like a co-branded or white-label version, feel free to reach out.
 
 
+Just tell me: **“Generate banner”**, **“Add license”**, or **“Create release notes.”**
