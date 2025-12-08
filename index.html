@@ -23,10 +23,19 @@
                 <button onclick="nextStep()">Next</button>
             </div>
             
-            <!-- Additional steps for challenges and appreciations will go here -->
+            <div id="step2" style="display:none;">
+                <label id="labelChallenges" for="challenges"></label>
+                <textarea id="challenges" placeholder=""></textarea>
+                <button onclick="nextStep()">Next</button>
+            </div>
             
-            <div id="output" style="display:none;"></div>
+            <div id="step3" style="display:none;">
+                <label id="labelAppreciations" for="appreciations"></label>
+                <textarea id="appreciations" placeholder=""></textarea>
+                <button onclick="generateReflection()">Generate Reflection</button>
         </div>
+
+            <div id="output" style="display:none;"></div>
     </div>
 
     <script src="script.js"></script>
