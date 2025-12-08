@@ -1,360 +1,291 @@
-// script.js
-// Lightweight, multilingual flow for "Think of a Person" webapp
-
+/* ============================================================
+   LANGUAGE TRANSLATIONS
+============================================================ */
 let selectedLanguage = "en";
-let currentStep = 1;
 
 const translations = {
-  en: {
-    // General
-    title: "Think of a person you know well.",
-    instruction:
-      "This short reflection helps you see both the difficult and the beautiful sides of this relationship.",
-    labelPerson: "Who are you thinking of?",
-    placeholderPerson: "e.g. my older sister, my colleague, my father",
-    btnNext1: "Next",
+    en: {
+        step1_title: "Think of a Person",
+        step1_instruction: "Think of someone you know personally — a friend, family member, partner, colleague.",
+        label_person: "Who is this person? (Name or relationship)",
+        next: "Next",
 
-    // Step 2: Challenges
-    labelChallenges:
-      "What are the things that make you feel frustrated or tired with this person?",
-    placeholderChallenges:
-      "Write 3–5 points, separated by commas or line breaks.",
-    btnNext2: "Next",
+        step2_label: "What are 3–5 things that challenge you about this person?",
+        step3_label: "What are 3–5 things you appreciate about this person?",
 
-    // Step 3: Appreciations
-    labelAppreciations:
-      "What are the things you genuinely appreciate or feel grateful for in this person?",
-    placeholderAppreciations:
-      "Write 3–5 points, separated by commas or line breaks.",
-    btnNext3: "Continue",
+        cta_instruction: "Select what you would like to include:",
+        cta_lamp: "Dedicate a Lamp Offering to the Buddha",
+        cta_flower: "Send this card + flowers to the person",
 
-    // CTA
-    ctaInstruction:
-      "Before we create your reflection card, would you like to include any of these gestures?",
-    ctaLampText:
-      "Dedicate a lamp offering for this person in front of the Buddha.",
-    ctaFlowerText:
-      "Send this card together with a flower as a gentle gesture of appreciation.",
-    btnGenerate: "Generate Reflection Card",
+        generate: "Generate Reflection Card",
+        download: "Download Card",
+        share: "Share Card"
+    },
 
-    // Output card text
-    fallbackName: "you",
-    outputTitle: "Reflection for {person}",
-    outputIntro:
-      "This card is a gentle space to hold both the difficult and the tender sides of my connection with {person}.",
-    outputChallengesTitle: "When I feel distant or upset…",
-    outputAppreciationsTitle: "And yet, in my heart I know…",
-    outputChallengesPrefix: "Sometimes I feel challenged because:",
-    outputAppreciationsPrefix: "At the same time, I truly appreciate that you:",
+    zh: {
+        step1_title: "想起一个人",
+        step1_instruction: "想一位你熟悉的人——朋友、家人、伴侣、同事。",
+        label_person: "这个人是谁？（名字或关系）",
+        next: "下一步",
 
-    outputCTA_none: "",
-    outputCTA_lamp:
-      "As a quiet gesture of goodwill, I am dedicating a lamp offering for you in front of the Buddha.",
-    outputCTA_flower:
-      "Along with this card, I am sending you a flower in my heart as a symbol of appreciation.",
-    outputCTA_both:
-      "For you, I am both dedicating a lamp offering in front of the Buddha and sending a flower as a symbol of appreciation.",
+        step2_label: "写下 3–5 件关于TA让你感到困难的事情。",
+        step3_label: "写下 3–5 件你感激或欣赏TA的地方。",
 
-    // Validation
-    msgFillField: "Please complete this step before continuing."
-  },
+        cta_instruction: "请选择你想附加的内容：",
+        cta_lamp: "为佛前供灯（功德回向）",
+        cta_flower: "寄出卡片＋鲜花给对方",
 
-  zh: {
-    // General
-    title: "想起一个你很熟悉的人。",
-    instruction: "这一小段自我整理，是为了帮你同时看见这段关系里的不容易与珍贵之处。",
-    labelPerson: "你现在想到的是谁？",
-    placeholderPerson: "例如：我的姐姐、同事、爸爸",
-    btnNext1: "下一步",
+        generate: "生成卡片",
+        download: "下载卡片",
+        share: "分享卡片"
+    },
 
-    // Step 2: Challenges
-    labelChallenges: "哪些地方，会让你对这个人感到生气、难受或疲累？",
-    placeholderChallenges: "写下 3–5 点，可以用逗号或分行分开。",
-    btnNext2: "下一步",
+    ms: {
+        step1_title: "Fikirkan Seseorang",
+        step1_instruction: "Fikirkan seorang yang anda kenali — rakan, keluarga, pasangan, atau rakan kerja.",
+        label_person: "Siapakah orang ini? (Nama atau hubungan)",
+        next: "Seterusnya",
 
-    // Step 3: Appreciations
-    labelAppreciations: "哪些地方，是你真心欣赏、感激这个人的？",
-    placeholderAppreciations: "写下 3–5 点，可以用逗号或分行分开。",
-    btnNext3: "继续",
+        step2_label: "Tulis 3–5 perkara yang mencabar tentang diri orang ini.",
+        step3_label: "Tulis 3–5 perkara yang anda hargai tentang orang ini.",
 
-    // CTA
-    ctaInstruction: "在生成这张关系卡片之前，你想不想加上一些心意？",
-    ctaLampText: "为他／她在佛前点一盏灯，祈愿光明与善缘。",
-    ctaFlowerText: "把这张卡片，连同一朵花，一并作为温柔的心意送出。",
-    btnGenerate: "生成关系卡片",
+        cta_instruction: "Pilih apa yang ingin anda sertakan:",
+        cta_lamp: "Dedikasi Pencahayaan Lampu kepada Buddha",
+        cta_flower: "Hantar kad ini + bunga kepada penerima",
 
-    // Output card text
-    fallbackName: "你",
-    outputTitle: "写给 {person} 的一张心卡",
-    outputIntro:
-      "这张卡片，是我用来同时安放对 {person} 的不容易与心底那份在意。",
-    outputChallengesTitle: "当我感到疏远或难受时……",
-    outputAppreciationsTitle: "但在心里，我也很清楚……",
-    outputChallengesPrefix: "有时候，我会因为这些而感到受伤或生气：",
-    outputAppreciationsPrefix: "同时，我也真心感激你这些特质：",
-
-    outputCTA_none: "",
-    outputCTA_lamp: "作为一份安静的祝福，我已为你点上一盏灯，愿光明守护你。",
-    outputCTA_flower:
-      "随着这张卡片，我也在心里送上一朵花，把我的感谢轻轻交给你。",
-    outputCTA_both:
-      "为你，我既点了一盏灯，也送上一朵花，愿光明与温柔同时陪伴你。",
-
-    // Validation
-    msgFillField: "请先完成这一部分，再按下一步。"
-  },
-
-  ms: {
-    // General
-    title: "Fikirkan seseorang yang anda benar-benar kenali.",
-    instruction:
-      "Refleksi ringkas ini membantu anda melihat kedua-dua sisi yang sukar dan sisi yang indah dalam hubungan ini.",
-    labelPerson: "Anda sedang memikirkan siapa?",
-    placeholderPerson: "cth: kakak saya, rakan sekerja saya, ayah saya",
-    btnNext1: "Seterusnya",
-
-    // Step 2: Challenges
-    labelChallenges:
-      "Perkara apa yang membuat anda rasa letih, marah atau kecewa dengan orang ini?",
-    placeholderChallenges:
-      "Tulis 3–5 poin, dipisahkan dengan koma atau baris baharu.",
-    btnNext2: "Seterusnya",
-
-    // Step 3: Appreciations
-    labelAppreciations:
-      "Perkara apa yang anda benar-benar hargai atau syukuri tentang orang ini?",
-    placeholderAppreciations:
-      "Tulis 3–5 poin, dipisahkan dengan koma atau baris baharu.",
-    btnNext3: "Teruskan",
-
-    // CTA
-    ctaInstruction:
-      "Sebelum kita hasilkan kad refleksi, adakah anda mahu menambah apa-apa niat atau dedikasi?",
-    ctaLampText:
-      "Menitipkan dedikasi pelita untuk orang ini di hadapan Buddha sebagai satu doa yang baik.",
-    ctaFlowerText:
-      "Menghantar kad ini bersama satu jambangan bunga sebagai tanda lembut penghargaan.",
-    btnGenerate: "Hasilkan Kad Refleksi",
-
-    // Output card text
-    fallbackName: "kamu",
-    outputTitle: "Refleksi untuk {person}",
-    outputIntro:
-      "Kad ini ialah ruang lembut untuk menampung kedua-dua sisi yang sukar dan sisi yang lembut dalam hubungan saya dengan {person}.",
-    outputChallengesTitle: "Apabila saya rasa jauh atau terluka…",
-    outputAppreciationsTitle: "Namun jauh di hati, saya tahu…",
-    outputChallengesPrefix: "Kadang-kadang saya rasa tercabar kerana:",
-    outputAppreciationsPrefix:
-      "Pada masa yang sama, saya benar-benar menghargai bahawa kamu:",
-
-    outputCTA_none: "",
-    outputCTA_lamp:
-      "Sebagai satu niat yang senyap dan baik, saya menitipkan dedikasi pelita untuk kamu di hadapan Buddha.",
-    outputCTA_flower:
-      "Bersama kad ini, saya juga menghantar sekuntum bunga dalam hati saya sebagai simbol penghargaan.",
-    outputCTA_both:
-      "Untuk kamu, saya menyalakan pelita dan juga menghantar sekuntum bunga, sebagai tanda doa dan penghargaan sekaligus.",
-
-    // Validation
-    msgFillField: "Sila lengkapkan bahagian ini sebelum meneruskan."
-  }
+        generate: "Hasilkan Kad",
+        download: "Muat Turun Kad",
+        share: "Kongsi Kad"
+    }
 };
 
-// Language selection
-function setLanguage(lang) {
-  selectedLanguage = lang;
-  currentStep = 1;
 
-  const t = translations[lang];
+/* ============================================================
+   HEALING MANTRA (MULTILINGUAL)
+============================================================ */
+const healingLines = {
+    en: ["I'm Sorry", "Please Forgive Me", "Thank You", "I Love You"],
+    zh: ["对不起", "请原谅我", "谢谢你", "我爱你"],
+    ms: ["Maafkan saya", "Ampunkan saya", "Terima kasih", "Saya sayangkan anda"]
+};
 
-  // Set texts for Step 1
-  document.getElementById("title").textContent = t.title;
-  document.getElementById("instruction").textContent = t.instruction;
-  document.getElementById("labelPerson").textContent = t.labelPerson;
-  document.getElementById("person").placeholder = t.placeholderPerson;
-  document.getElementById("btnNext1").textContent = t.btnNext1;
 
-  // Set texts for Step 2
-  document.getElementById("labelChallenges").textContent =
-    t.labelChallenges;
-  document.getElementById("challenges").placeholder =
-    t.placeholderChallenges;
-  document.getElementById("btnNext2").textContent = t.btnNext2;
-
-  // Set texts for Step 3
-  document.getElementById("labelAppreciations").textContent =
-    t.labelAppreciations;
-  document.getElementById("appreciations").placeholder =
-    t.placeholderAppreciations;
-  document.getElementById("btnNext3").textContent = t.btnNext3;
-
-  // CTA texts
-  document.getElementById("ctaInstruction").textContent =
-    t.ctaInstruction;
-  document.getElementById("ctaLampText").textContent = t.ctaLampText;
-  document.getElementById("ctaFlowerText").textContent =
-    t.ctaFlowerText;
-  document.getElementById("btnGenerate").textContent = t.btnGenerate;
-
-  // Reset form visibility
-  document.getElementById("form").style.display = "block";
-  document.getElementById("step1").style.display = "block";
-  document.getElementById("step2").style.display = "none";
-  document.getElementById("step3").style.display = "none";
-  document.getElementById("ctaSection").style.display = "none";
-  document.getElementById("output").style.display = "none";
-
-  // Clear fields & CTA
-  document.getElementById("person").value = "";
-  document.getElementById("challenges").value = "";
-  document.getElementById("appreciations").value = "";
-  document.getElementById("ctaLamp").checked = false;
-  document.getElementById("ctaFlower").checked = false;
+/* ============================================================
+   LANGUAGE SELECTION
+============================================================ */
+function selectLanguage(lang) {
+    selectedLanguage = lang;
 }
 
-// Step 1 → Step 2
+
+/* ============================================================
+   SCREEN FLOW
+============================================================ */
+function startApp() {
+    document.getElementById("landingPage").style.display = "none";
+    document.getElementById("form").style.display = "block";
+    loadStep1();
+}
+
+function loadStep1() {
+    const t = translations[selectedLanguage];
+    document.getElementById("step1").style.display = "block";
+
+    document.getElementById("title").innerHTML = t.step1_title;
+    document.getElementById("instruction").innerHTML = t.step1_instruction;
+    document.getElementById("labelPerson").innerHTML = t.label_person;
+    document.getElementById("btnNext1").innerHTML = t.next;
+}
+
 function nextStep() {
-  const t = translations[selectedLanguage];
-  const person = document.getElementById("person").value.trim();
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
 
-  if (!person) {
-    alert(t.msgFillField);
-    return;
-  }
-
-  currentStep = 2;
-  document.getElementById("step1").style.display = "none";
-  document.getElementById("step2").style.display = "block";
+    const t = translations[selectedLanguage];
+    document.getElementById("labelChallenges").innerHTML = t.step2_label;
+    document.getElementById("btnNext2").innerHTML = t.next;
 }
 
-// Step 2 → Step 3
 function nextStep2() {
-  const t = translations[selectedLanguage];
-  const challenges = document
-    .getElementById("challenges")
-    .value.trim();
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step3").style.display = "block";
 
-  if (!challenges) {
-    alert(t.msgFillField);
-    return;
-  }
-
-  currentStep = 3;
-  document.getElementById("step2").style.display = "none";
-  document.getElementById("step3").style.display = "block";
+    const t = translations[selectedLanguage];
+    document.getElementById("labelAppreciations").innerHTML = t.step3_label;
+    document.getElementById("btnNext3").innerHTML = t.next;
 }
 
-// Step 3 → CTA section
 function goToCTA() {
-  const t = translations[selectedLanguage];
-  const appreciations = document
-    .getElementById("appreciations")
-    .value.trim();
+    document.getElementById("step3").style.display = "none";
+    document.getElementById("ctaSection").style.display = "block";
 
-  if (!appreciations) {
-    alert(t.msgFillField);
-    return;
-  }
-
-  document.getElementById("step3").style.display = "none";
-  document.getElementById("ctaSection").style.display = "block";
+    const t = translations[selectedLanguage];
+    document.getElementById("ctaInstruction").innerHTML = t.cta_instruction;
+    document.getElementById("ctaLampText").innerHTML = t.cta_lamp;
+    document.getElementById("ctaFlowerText").innerHTML = t.cta_flower;
+    document.getElementById("btnGenerate").innerHTML = t.generate;
 }
 
-// Generate final reflection card
+
+/* ============================================================
+   BACK BUTTONS
+============================================================ */
+function goBackToStep1() {
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step1").style.display = "block";
+}
+
+function goBackToStep2() {
+    document.getElementById("step3").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+}
+
+function goBackToCTA() {
+    document.getElementById("output").style.display = "none";
+    document.getElementById("ctaSection").style.display = "block";
+}
+
+function goBackToStep3() {
+    document.getElementById("ctaSection").style.display = "none";
+    document.getElementById("step3").style.display = "block";
+}
+
+
+/* ============================================================
+   GENERATE REFLECTION CARD
+============================================================ */
 function generateReflection() {
-  const t = translations[selectedLanguage];
+    const person = document.getElementById("person").value.trim();
+    const challenges = document.getElementById("challenges").value.trim();
+    const appreciations = document.getElementById("appreciations").value.trim();
 
-  const personRaw = document.getElementById("person").value.trim();
-  const person =
-    personRaw || t.fallbackName;
+    document.getElementById("ctaSection").style.display = "none";
+    document.getElementById("output").style.display = "block";
 
-  const challengesRaw = document
-    .getElementById("challenges")
-    .value.trim();
-  const appreciationsRaw = document
-    .getElementById("appreciations")
-    .value.trim();
+    // Build card content
+    document.getElementById("outputTitle").innerHTML = person;
+    document.getElementById("outputIntro").innerHTML =
+        `This message is written with sincerity.`;
 
-  const lampChecked = document.getElementById("ctaLamp").checked;
-  const flowerChecked = document.getElementById("ctaFlower").checked;
+    document.getElementById("outputChallenges").innerHTML =
+        `<strong>Challenges:</strong><br>${formatList(challenges)}`;
 
-  // Build output card content
-  const title = t.outputTitle.replace("{person}", person);
-  const intro = t.outputIntro.replace("{person}", person);
+    document.getElementById("outputAppreciations").innerHTML =
+        `<strong>Appreciations:</strong><br>${formatList(appreciations)}`;
 
-  const challengesList = formatAsList(challengesRaw);
-  const appreciationsList = formatAsList(appreciationsRaw);
+    document.getElementById("outputCTA").innerHTML =
+        buildOfferingSummary();
 
-  let ctaText = "";
-  if (lampChecked && flowerChecked) {
-    ctaText = t.outputCTA_both;
-  } else if (lampChecked) {
-    ctaText = t.outputCTA_lamp;
-  } else if (flowerChecked) {
-    ctaText = t.outputCTA_flower;
-  } else {
-    ctaText = t.outputCTA_none;
-  }
-
-  // Inject into DOM
-  document.getElementById("outputTitle").textContent = title;
-  document.getElementById("outputIntro").textContent = intro;
-
-  document.getElementById("outputChallenges").innerHTML =
-    "<strong>" +
-    escapeHtml(t.outputChallengesTitle) +
-    "</strong><br>" +
-    "<span>" +
-    escapeHtml(t.outputChallengesPrefix) +
-    "</span>" +
-    challengesList;
-
-  document.getElementById("outputAppreciations").innerHTML =
-    "<strong>" +
-    escapeHtml(t.outputAppreciationsTitle) +
-    "</strong><br>" +
-    "<span>" +
-    escapeHtml(t.outputAppreciationsPrefix) +
-    "</span>" +
-    appreciationsList;
-
-  document.getElementById("outputCTA").textContent = ctaText;
-
-  // Show output, hide CTA section
-  document.getElementById("ctaSection").style.display = "none";
-  document.getElementById("output").style.display = "block";
-
-  // Optional: scroll to output
-  document
-    .getElementById("output")
-    .scrollIntoView({ behavior: "smooth" });
+    // Activate Healing Mantra Typewriter
+    animateHealingLines(selectedLanguage);
 }
 
-// Helper: format a raw string as <ul><li>…</li></ul>
-function formatAsList(raw) {
-  if (!raw) return "";
 
-  const items = raw
-    .split(/[\n,]/)
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
-
-  if (!items.length) return "";
-
-  let html = "<ul>";
-  items.forEach((item) => {
-    html += "<li>" + escapeHtml(item) + "</li>";
-  });
-  html += "</ul>";
-  return html;
+/* Format bullet-style list from input */
+function formatList(text) {
+    return text
+        .split("\n")
+        .filter(t => t.trim() !== "")
+        .map(t => "• " + t.trim())
+        .join("<br>");
 }
 
-// Helper: basic HTML escaping
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+
+/* Offering summary */
+function buildOfferingSummary() {
+    let summary = "";
+    if (document.getElementById("ctaLamp").checked)
+        summary += "• Lamp offering included.<br>";
+    if (document.getElementById("ctaFlower").checked)
+        summary += "• Flowers included.<br>";
+    return summary;
+}
+
+
+/* ============================================================
+   TYPEWRITER MANTRA (SENDER SIDE)
+============================================================ */
+function animateHealingLines(lang) {
+    const lines = healingLines[lang] || healingLines.en;
+    const ids = ["h1", "h2", "h3", "h4"];
+
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = "";
+    });
+
+    let lineIndex = 0;
+
+    function typeLine() {
+        if (lineIndex >= lines.length) return;
+        const text = lines[lineIndex];
+        const el = document.getElementById(ids[lineIndex]);
+        if (!el) return;
+
+        let charIndex = 0;
+
+        function typeChar() {
+            if (charIndex <= text.length) {
+                el.textContent = text.slice(0, charIndex);
+                charIndex++;
+                setTimeout(typeChar, 50);
+            } else {
+                lineIndex++;
+                setTimeout(typeLine, 250);
+            }
+        }
+        typeChar();
+    }
+
+    typeLine();
+}
+
+
+/* ============================================================
+   DOWNLOAD CARD (WITH WATERMARK MODE)
+============================================================ */
+function downloadCard() {
+    const card = document.querySelector("#output");
+    if (!card) return;
+
+    card.classList.add("watermarkedCard");
+
+    html2canvas(card).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "reflection-card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        card.classList.remove("watermarkedCard");
+    });
+}
+
+
+/* ============================================================
+   SHARE CARD (ENCODED URL)
+============================================================ */
+function shareCard() {
+    const cardData = {
+        title: document.getElementById("outputTitle").innerHTML,
+        intro: document.getElementById("outputIntro").innerHTML,
+        challenges: document.getElementById("outputChallenges").innerHTML,
+        appreciations: document.getElementById("outputAppreciations").innerHTML,
+        cta: document.getElementById("outputCTA").innerHTML,
+        lang: selectedLanguage,
+        healing: healingLines[selectedLanguage]
+    };
+
+    const encoded = btoa(JSON.stringify(cardData));
+    const shareURL = 
+        "https://therealdtyh0601.github.io/ReflectiveBond/recipient.html?card=" + encoded;
+
+    if (navigator.share) {
+        navigator.share({
+            title: "A Reflection for You",
+            text: "Someone shared a Lumi Studio reflection card with you.",
+            url: shareURL
+        });
+    } else {
+        prompt("Copy this link to share:", shareURL);
+    }
 }
