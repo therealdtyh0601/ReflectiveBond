@@ -3,98 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Reflective Bond · Recipient View</title>
+
+    <!-- Google AdSense -->
+    <script async 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9188806824600550"
+        crossorigin="anonymous">
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="styles.css">
-
-    <!-- html2canvas for download (optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
 </head>
 
 <body>
 
-    <!-- Home Button -->
     <button id="homeBtn" class="home-icon-btn" onclick="window.location.href='index.html'">
         <span class="home-icon">⌂</span>
     </button>
 
     <div class="container">
 
-        <!-- Error Bar -->
         <div id="errorBar" class="errorBar"></div>
 
-        <!-- ===============================
-             RECIPIENT CARD
-        ================================ -->
         <section id="recipientCardSection">
-
             <h1 class="recipientTitle">A Reflection Sent to You</h1>
-            <p class="recipientSubtitle">
-                Someone took a quiet moment to reflect, soften, and share what’s been in their heart.
-            </p>
+            <p class="recipientSubtitle">Someone took a quiet moment to share what’s in their heart.</p>
 
             <div id="outputCard" class="recipientCard">
 
-                <p id="outputRecipientLine">
-                    Dear <span id="outputRecipientName"></span>,
+                <p>Dear <span id="outputRecipientName"></span>,</p>
+
+                <p>
+                Before anything else, I want to express this clearly:
+                I would like to apologize for any actions, words, or thoughts that may have caused hurt —
+                whether intentionally or unintentionally.
                 </p>
 
-                <p id="outputIntentionBlock">
-                    Before anything else, I want to express this clearly:
-                    I would like to apologize for any actions, words, or thoughts that may have caused hurt —
-                    whether intentionally or unintentionally.
+                <p>
+                My intention in sharing this reflection is simple:
+                to reconcile where we can, to mend our bond, and to honour the connection we have.
+                From a place of goodwill and loving-kindness, I sincerely wish you well and happy.
                 </p>
 
-                <p id="outputIntentionBlock2">
-                    My intention in sharing this reflection is simple:
-                    to reconcile where we can, to mend our bond, and to honour the connection we have.
-                    From a place of goodwill and loving-kindness, I sincerely wish you well and happy.
-                </p>
-
-                <p id="outputOpening">
-                    Today, I took a moment to pause and reflect on what has been sitting in my heart.
-                </p>
-
-                <p id="outputChallengesIntro">
-                    When I think about you, here are the things that have been difficult for me lately:
-                </p>
+                <p>Here are the things that have been difficult for them:</p>
                 <div id="outputChallenges"></div>
 
-                <p id="outputAppreciationsIntro">
-                    After taking time to breathe and settle my thoughts, I also reconnected with the
-                    parts of you that I truly appreciate:
-                </p>
+                <p>And here are the things they genuinely appreciate:</p>
                 <div id="outputAppreciations"></div>
 
-                <p id="outputBridge">
-                    These qualities remind me that our relationship is shaped not only by tension,
-                    but also by sincerity, kindness, and the meaningful moments we share.
-                </p>
-
                 <div class="healingBlock">
-                    <p class="healingLine">May I see clearly.</p>
-                    <p class="healingLine">May I soften where I can.</p>
-                    <p class="healingLine">May I honour my boundaries.</p>
-                    <p class="healingLine">May I act with compassion and truth.</p>
+                    <p>May I see clearly.</p>
+                    <p>May I soften where I can.</p>
+                    <p>May I honour my boundaries.</p>
+                    <p>May I act with compassion and truth.</p>
                 </div>
 
                 <p class="signatureLabel">With reflection,</p>
                 <p id="outputSignature"></p>
 
-                <!-- Four-line Ho’oponopono Closing -->
-                <div id="deepHealingFinal" class="deepHealingFinal">
+                <div class="deepHealingFinal">
                     <p>I’m sorry.</p>
                     <p>Please forgive me.</p>
                     <p>Thank you.</p>
                     <p>I love you.</p>
                 </div>
+
             </div>
 
-            <!-- THEME SELECTOR -->
             <div class="themeDropdown">
                 <p>Change Theme:</p>
-
                 <div class="themePreviewRow">
                     <div class="themePreview themePreview-lumi" onclick="setTheme('lumi')"></div>
                     <div class="themePreview themePreview-dawn" onclick="setTheme('dawn')"></div>
@@ -104,29 +80,22 @@
                 </div>
             </div>
 
-            <div class="outputActions" style="margin-top:24px;">
-                <button class="startBtn" onclick="downloadCard()">Download Card (PNG)</button>
-                <button class="startBtn" style="margin-top:10px;" onclick="downloadStoryCard()">Download Story Version</button>
-            </div>
+            <button class="startBtn" onclick="downloadCard()">Download Card</button>
+            <button class="startBtn" onclick="downloadStoryCard()">Download Story Version</button>
 
         </section>
 
-        <!-- FOOTER -->
         <footer>
-            <div class="footerGeo"></div>
-            <div class="footerText">Reflective Bond · A Lumi Studio Reflection</div>
             <div class="footerLinks">
                 <span onclick="window.location.href='index.html'">Home</span> |
-                <span onclick="window.location.href='index.html#termsPage'">Terms of Use</span> |
-                <span onclick="window.location.href='index.html#privacyPage'">Privacy Policy</span> |
+                <span onclick="window.location.href='index.html#termsPage'">Terms</span> |
+                <span onclick="window.location.href='index.html#privacyPage'">Privacy</span> |
                 <span onclick="window.location.href='index.html#disclaimerPage'">Disclaimer</span> |
                 <span onclick="window.location.href='index.html#lumiPage'">Lumi Studio</span>
             </div>
         </footer>
-
     </div>
 
-    <!-- Recipient Script -->
     <script src="recipient.js"></script>
 </body>
 </html>
